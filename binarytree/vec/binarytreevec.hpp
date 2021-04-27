@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec { // Must extend BinaryTree<Data>
+class BinaryTreeVec : virtual public BinaryTree<Data> { // Must extend BinaryTree<Data>
 
 private:
 
@@ -22,57 +22,67 @@ private:
 
 protected:
 
-  // using BinaryTree<Data>::???;
+  using BinaryTree<Data>::Node;
 
-  // ...
-
-  struct NodeVec { // Must extend Node
+  struct NodeVec : virtual public Node { // Must extend Node
 
   private:
 
     // ...
+    Data elemento;
+    int indiceNodoCurr;
 
   protected:
 
-    // Data dato;
-    // int indiceNodoCurr;
+
 
   public:
 
-    // ...
+    Data& Element() noexcept; // Mutable access to the element (concrete function should not throw exceptions)
+    Data& Element() const noexcept; // Immutable access to the element (concrete function should not throw exceptions)
+
+    bool IsLeaf() noexcept; // (concrete function should not throw exceptions)
+    bool HasLeftChild() noexcept; // (concrete function should not throw exceptions)
+    bool HasRightChild() noexcept; // (concrete function should not throw exceptions)
+
+    NodoVec& LeftChild(); // (concrete function must throw std::out_of_range when not existent)
+    NodoVec& RightChild(); // (concrete function must throw std::out_of_range when not existent)
 
   };
-  // Vetctor<NodeVec> nodi;
+
+  Vector<NodeVec> vettore;
+
+
 public:
 
   // Default constructor
-  // BinaryTreeVec() specifiers; //Albero vuoto
+  BinaryTreeVec() = default; //Albero vuoto
 
   /* ************************************************************************ */
 
   // Specific constructors
-  // BinaryTreeVec(argument) specifiers; // A binary tree obtained from a LinearContainer
+  BinaryTreeVec(const LinearContainer&); // A binary tree obtained from a LinearContainer
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // BinaryTreeVec(argument) specifiers;
+  BinaryTreeVec(const BinaryTreeVec&);
 
   // Move constructor
-  // BinaryTreeVec(argument) specifiers;
+  BinaryTreeVec(BinaryTreeVec&&) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~BinaryTreeVec() specifiers;
+  ~BinaryTreeVec() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument) specifiers;
+  BinaryTreeVec<Data>& operator=(const BinaryTreeVec<Data>& albero)
 
   // Move assignment
-  // type operator=(argument) specifiers;
+  BinaryTreeVec<Data>& operator=(BinaryTreeVec&&) noexcept
 
   /* ************************************************************************ */
 

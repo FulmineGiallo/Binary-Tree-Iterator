@@ -6,4 +6,4 @@ g++ -O3 -o main \
   zlasdtest/exercise2/simpletest.cpp zlasdtest/exercise2/fulltest.cpp \
   zlasdtest/exercise3/simpletest.cpp zlasdtest/exercise3/fulltest.cpp \
   zlasdtest/container/container.cpp \
-  zlasdtest/test.cpp zmytest/test.cpp main.cpp
+  zlasdtest/test.cpp zmytest/test.cpp main.cpp > job.log 2>&1
