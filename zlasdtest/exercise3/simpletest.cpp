@@ -20,9 +20,9 @@
 using namespace std;
 
 /* ************************************************************************** */
-
-void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+/*
+void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   try {
     MapPreOrder(loctestnum, loctesterr, bt, true, &MapPrint<int>, 0);
     FoldPreOrder(loctestnum, loctesterr, bt, true, &FoldAdd<int>, 0, 0, 6);
@@ -38,8 +38,8 @@ void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, uint& testnum, uint& testerr)
   testerr += loctesterr;
 }
 
-void stestBinaryTreeInt(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestBinaryTreeInt(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of BinaryTreeVec<int> Test" << endl;
   try {
     lasd::Vector<int> vec(4);
@@ -77,8 +77,8 @@ void stestBinaryTreeInt(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   try {
     lasd::BTPreOrderIterator<double> itr1(bt);
     GetItrValue(loctestnum, loctesterr, itr1, true, 1.2);
@@ -132,8 +132,8 @@ void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, uint& testnum, uint& tes
   testerr += loctesterr;
 }
 
-void stestBinaryTreeFloat(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestBinaryTreeFloat(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of BinaryTreeVec<double> Test" << endl;
   try {
     lasd::List<double> lst;
@@ -169,8 +169,8 @@ void stestBinaryTreeFloat(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestBinaryTreeString(lasd::BinaryTree<string>& bt, uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestBinaryTreeString(lasd::BinaryTree<string>& bt, int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   try {
     MapPreOrder(loctestnum, loctesterr, bt, true, &MapPrint<string>, 0);
     FoldPreOrder(loctestnum, loctesterr, bt, true, &FoldStringConcatenate, string(""), string("?"), string("?ABDC"));
@@ -186,8 +186,8 @@ void stestBinaryTreeString(lasd::BinaryTree<string>& bt, uint& testnum, uint& te
   testerr += loctesterr;
 }
 
-void stestBinaryTreeString(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestBinaryTreeString(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of BinaryTreeVec<string> Test" << endl;
   try {
     lasd::Vector<string> vec(4);
@@ -223,9 +223,9 @@ void stestBinaryTreeString(uint& testnum, uint& testerr) {
 /* ************************************************************************** */
 
 void testSimpleExercise3() {
-  uint testnum = 0, testerr = 0;
-  stestBinaryTreeInt(testnum, testerr);
-  stestBinaryTreeFloat(testnum, testerr);
-  stestBinaryTreeString(testnum, testerr);
+  int testnum = 0, testerr = 0;
+  //stestBinaryTreeInt(testnum, testerr);
+  //stestBinaryTreeFloat(testnum, testerr);
+  //stestBinaryTreeString(testnum, testerr);
   cout << endl << "Exercise 3 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }

@@ -9,7 +9,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Iterator { //Classe astratta
+class Iterator {
 
 private:
 
@@ -22,36 +22,50 @@ protected:
 public:
 
   // Destructor
+  // ~Iterator() specifiers
   virtual ~Iterator() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  Iterator& operator=(const Iterator&) = delete; // Copy assignment of abstract types should not be possible.
+  // type operator=(argument);
+  // Copy assignment of abstract types should not be possible.
+  Iterator& operator=(const Iterator&) = delete;
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
-  Iterator&& operator=(Iterator&&) noexcept = delete;
+  // type operator=(argument);
+  // Move assignment of abstract types should not be possible.
+  Iterator& operator=(Iterator&&) noexcept = delete;
+
   /* ************************************************************************ */
 
   // Comparison operators
-  bool operator==(const Iterator&&) const noexcept = delete; ; // Comparison of abstract types might not be possible.
-  bool operator!=(const Iterator&&) const noexcept = delete; ; // Comparison of abstract types might not be possible.
+  // type operator==(argument) specifiers;
+  // Comparison of abstract types might not be possible.
+  bool operator==(const Iterator&) const noexcept = delete;
+
+  // type operator!=(argument) specifiers;
+  // Comparison of abstract types might not be possible.
+  bool operator!=(const Iterator&) const noexcept = delete;
 
   /* ************************************************************************ */
 
   // Specific member functions
-  // Stato dell'iteratore.
-  Data& operator*() const; // (concrete function must throw std::out_of_range when terminated)
-  virtual bool Terminated() noexcept = 0; // (concrete function should not throw exceptions)
+
+  // type operator*() specifiers;
+  // (concrete function must throw std::out_of_range when terminated)
+  virtual Data& operator*() const = 0;
+
+  // type Terminated() specifiers;
+  // (concrete function should not throw exceptions)
+  virtual bool Terminated() noexcept = 0;
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class ForwardIterator : virtual public Iterator
-{ // Must extend Iterator
+class ForwardIterator: virtual public Iterator<Data> { // Must extend Iterator
 
 private:
 
@@ -64,34 +78,45 @@ protected:
 public:
 
   // Destructor
+  // ~ForwardIterator() specifiers
   virtual ~ForwardIterator() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  ForwardIterator& operator=(const ForwardIterator&) = delete; // Copy assignment of abstract types should not be possible.
+  // type operator=(argument);
+  // Copy assignment of abstract types should not be possible.
+  ForwardIterator& operator=(const ForwardIterator&) = delete;
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
-  ForwardIterator&& operator=(ForwardIterator&&) noexcept = delete;
+  // type operator=(argument);
+  // Move assignment of abstract types should not be possible.
+  ForwardIterator& operator=(ForwardIterator&&) noexcept = delete;
+
   /* ************************************************************************ */
 
   // Comparison operators
-  bool operator==(const ForwardIterator&&) const noexcept = delete; ; // Comparison of abstract types might not be possible.
-  bool operator!=(const ForwardIterator&&) const noexcept = delete; ; // Comparison of abstract types might not be possible.
+  // type operator==(argument) specifiers;
+  // Comparison of abstract types might not be possible.
+  bool operator==(const ForwardIterator&) const noexcept = delete;
+
+  // type operator!=(argument) specifiers;
+  // Comparison of abstract types might not be possible.
+  bool operator!=(const ForwardIterator&) const noexcept = delete;
 
   /* ************************************************************************ */
 
   // Specific member functions
-
-  ForwardIterator& operator++(); // (concrete function must throw std::out_of_range when terminated)
+  // type operator++() specifiers;
+  // (concrete function must throw std::out_of_range when terminated)
+  ForwardIterator& operator++();
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BackwardIterator : virtual public Iterator { // Must extend Iterator
+class BackwardIterator { // Must extend Iterator
 
 private:
 

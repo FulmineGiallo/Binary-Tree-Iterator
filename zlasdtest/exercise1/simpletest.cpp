@@ -13,10 +13,10 @@
 
 using namespace std;
 
-/* ************************************************************************** */
+/* ************************************************************************** *//*
 
-void stestVectorInt(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestVectorInt(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector<int> Test:" << endl;
   try {
     {
@@ -70,8 +70,8 @@ void stestVectorInt(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorDouble(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestVectorDouble(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector<double> Test:" << endl;
   try {
     lasd::Vector<double> vec(3);
@@ -98,8 +98,8 @@ void stestVectorDouble(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorString(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestVectorString(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector<string> Test:" << endl;
   try {
     lasd::Vector<string> vec(2);
@@ -146,8 +146,8 @@ void stestVectorString(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestVector(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestVector(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   stestVectorInt(loctestnum, loctesterr);
   stestVectorDouble(loctestnum, loctesterr);
   stestVectorString(loctestnum, loctesterr);
@@ -157,9 +157,9 @@ void stestVector(uint& testnum, uint& testerr) {
 }
 
 /* ************************************************************************** */
-
-void stestListInt(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+/*
+void stestListInt(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of List<int> Test:" << endl;
   try {
     lasd::List<int> lst;
@@ -237,8 +237,8 @@ void stestListInt(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestListDouble(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestListDouble(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of List<double> Test:" << endl;
   try {
     lasd::List<double> lst;
@@ -273,8 +273,8 @@ void stestListDouble(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestListString(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestListString(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of List<string> Test:" << endl;
   try {
     lasd::List<string> lst;
@@ -318,8 +318,8 @@ void stestListString(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestList(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestList(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   stestListInt(loctestnum, loctesterr);
   stestListDouble(loctestnum, loctesterr);
   stestListString(loctestnum, loctesterr);
@@ -328,10 +328,10 @@ void stestList(uint& testnum, uint& testerr) {
   cout << endl << "Exercise 1 - List (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
 
-/* ************************************************************************** */
+/* ************************************************************************** *//*
 
-void stestVectorListInt(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestVectorListInt(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector/List<int> Test:" << endl;
   try {
     lasd::Vector<int> vec(3);
@@ -362,8 +362,8 @@ void stestVectorListInt(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorListDouble(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestVectorListDouble(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector/List<double> Test:" << endl;
   try {
     lasd::Vector<double> vec(3);
@@ -394,8 +394,8 @@ void stestVectorListDouble(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorListString(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestVectorListString(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector/List<string> Test:" << endl;
   try {
     lasd::Vector<string> vec(3);
@@ -426,8 +426,8 @@ void stestVectorListString(uint& testnum, uint& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorList(uint& testnum, uint& testerr) {
-  uint loctestnum = 0, loctesterr = 0;
+void stestVectorList(int& testnum, int& testerr) {
+  int loctestnum = 0, loctesterr = 0;
   stestVectorListInt(loctestnum, loctesterr);
   stestVectorListDouble(loctestnum, loctesterr);
   stestVectorListString(loctestnum, loctesterr);
@@ -439,9 +439,9 @@ void stestVectorList(uint& testnum, uint& testerr) {
 /* ************************************************************************** */
 
 void testSimpleExercise1() {
-  uint testnum = 0, testerr = 0;
-  stestVector(testnum, testerr);
-  stestList(testnum, testerr);
-  stestVectorList(testnum, testerr);
+  int testnum = 0, testerr = 0;
+  //stestVector(testnum, testerr);
+  //stestList(testnum, testerr);
+  //stestVectorList(testnum, testerr);
   cout << endl << "Exercise 1 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }

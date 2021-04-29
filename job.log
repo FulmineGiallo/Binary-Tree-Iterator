@@ -1,0 +1,55 @@
+In file included from zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:564,
+                 from zlasdtest/exercise3/../binarytree/binarytree.hpp:5,
+                 from zlasdtest/exercise3/simpletest.cpp:14:
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.cpp:144:1: error: no declaration matches 'lasd::BTPostOrderIterator<Data>::BTPostOrderIterator(lasd::BinaryTree<Data>&)'
+ BTPostOrderIterator<Data>::BTPostOrderIterator(BinaryTree<Data>& post)
+ ^~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from zlasdtest/exercise3/../binarytree/binarytree.hpp:5,
+                 from zlasdtest/exercise3/simpletest.cpp:14:
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:360:3: note: candidates are: 'lasd::BTPostOrderIterator<Data>::BTPostOrderIterator(lasd::BTPostOrderIterator<Data>&&)'
+   BTPostOrderIterator(BTPostOrderIterator&&) noexcept;
+   ^~~~~~~~~~~~~~~~~~~
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:356:3: note:                 'lasd::BTPostOrderIterator<Data>::BTPostOrderIterator(const lasd::BTPostOrderIterator<Data>&)'
+   BTPostOrderIterator(const BTPostOrderIterator&);
+   ^~~~~~~~~~~~~~~~~~~
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:350:3: note:                 'lasd::BTPostOrderIterator<Data>::BTPostOrderIterator(lasd::BinaryTree<Data>)'
+   BTPostOrderIterator(BinaryTree<Data>);
+   ^~~~~~~~~~~~~~~~~~~
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:333:7: note: 'class lasd::BTPostOrderIterator<Data>' defined here
+ class BTPostOrderIterator: virtual public ForwardIterator<Data> { // Must extend ForwardIterator<Data>
+       ^~~~~~~~~~~~~~~~~~~
+In file included from zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:564,
+                 from zlasdtest/exercise3/../binarytree/binarytree.hpp:5,
+                 from zlasdtest/exercise3/simpletest.cpp:14:
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.cpp:174:1: error: invalid use of template-name 'lasd::BTPostOrderIterator' without an argument list
+ BTPostOrderIterator& BTPostOrderIterator<Data>::operator=(const BTPostOrderIterator& post){
+ ^~~~~~~~~~~~~~~~~~~
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.cpp:174:1: note: class template argument deduction is only available with -std=c++17 or -std=gnu++17
+In file included from zlasdtest/exercise3/../binarytree/binarytree.hpp:5,
+                 from zlasdtest/exercise3/simpletest.cpp:14:
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:333:7: note: 'template<class Data> class lasd::BTPostOrderIterator' declared here
+ class BTPostOrderIterator: virtual public ForwardIterator<Data> { // Must extend ForwardIterator<Data>
+       ^~~~~~~~~~~~~~~~~~~
+In file included from zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:564,
+                 from zlasdtest/exercise3/../binarytree/binarytree.hpp:5,
+                 from zlasdtest/exercise3/simpletest.cpp:14:
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.cpp:182:1: error: invalid use of template-name 'lasd::BTPostOrderIterator' without an argument list
+ BTPostOrderIterator& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator&& post) noexcept
+ ^~~~~~~~~~~~~~~~~~~
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.cpp:182:1: note: class template argument deduction is only available with -std=c++17 or -std=gnu++17
+In file included from zlasdtest/exercise3/../binarytree/binarytree.hpp:5,
+                 from zlasdtest/exercise3/simpletest.cpp:14:
+zlasdtest/exercise3/../binarytree/../../binarytree/binarytree.hpp:333:7: note: 'template<class Data> class lasd::BTPostOrderIterator' declared here
+ class BTPostOrderIterator: virtual public ForwardIterator<Data> { // Must extend ForwardIterator<Data>
+       ^~~~~~~~~~~~~~~~~~~
+In file included from zlasdtest/exercise3/../../binarytree/vec/binarytreevec.hpp:102,
+                 from zlasdtest/exercise3/simpletest.cpp:16:
+zlasdtest/exercise3/../../binarytree/vec/binarytreevec.cpp:78:1: error: 'NodeVec' does not name a type
+ NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild()
+ ^~~~~~~
+zlasdtest/exercise3/../../binarytree/vec/binarytreevec.cpp:92:1: error: 'NodeVec' does not name a type
+ NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild()
+ ^~~~~~~
+zlasdtest/exercise3/../../binarytree/vec/binarytreevec.cpp:105:1: error: 'NodeVec' does not name a type
+ NodeVec& BinaryTreeVec<Data>::Root()
+ ^~~~~~~
