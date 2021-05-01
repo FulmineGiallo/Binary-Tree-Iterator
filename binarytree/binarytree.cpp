@@ -8,24 +8,34 @@ namespace lasd
 
 // Opertator == (Node)
 template<typename Data>
-bool BinaryTree<Data>::Node::operator==(const Node& newNode) const noexcept{
+bool BinaryTree<Data>::Node::operator==(const Node& newNode) const noexcept
+{
   bool val = true;
-
-  if(Element() == newNode.Element()){
-    if(HasLeftChild() && newNode.HasLeftChild()){
+  if(Element() != newNode.Element())
+    val = false;
+  if(Element() == newNode.Element())
+  {
+    if(HasLeftChild() && newNode.HasLeftChild())
+    {
       val = (LeftChild() == newNode.LeftChild());
-    }else if (HasLeftChild() || newNode.HasLeftChild()){
+    }
+    else if (HasLeftChild() || newNode.HasLeftChild())
+    {
       return false;
     }
-    if(val){
-      if(HasRightChild() && newNode.HasLeftChild()){
+    if(val)
+    {
+      if(HasRightChild() && newNode.HasLeftChild())
+      {
         val = RightChild() == newNode.RightChild;
-      }else if(HasRightChild() || newNode.HasRightChild()){
+      }
+      else if(HasRightChild() || newNode.HasRightChild())
+      {
         return false;
+      }
     }
   }
-  return val;
-  }
+    return val;
 }
 
 // Opertator != (Node)
@@ -46,6 +56,11 @@ bool BinaryTree<Data>::operator!=(const BinaryTree& tree) const noexcept{
   return Root() != tree.Root();
 }
 
+template <typename Data>
+bool BinaryTree<Data>::Node::IsLeaf() noexcept
+{
+  return !(HasLeftChild() || HasRightChild());
+}
 //****************************************************************************** PRE ORDER
 
 // Specific constructors
@@ -87,9 +102,12 @@ BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(BTPreOrderIterator
 // Opertator ==
 template<typename Data>
 bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator<Data>& pre) const noexcept{
-  if(stack == pre.stack && node == pre.node){
+  if(stack == pre.stack && node == pre.node)
+  {
     return true;
-  }else{
+  }
+  else
+  {
     return false;
   }
 }
@@ -104,9 +122,12 @@ bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data>& pre) c
 template<typename Data>
 Data& BTPreOrderIterator<Data>::operator*() const
 {
-  if (Terminated()){
+  if (Terminated())
+  {
     throw std::out_of_range("Iteratore terminato!");
-  }else{
+  }
+  else
+  {
     return node.Element();
   }
 }
@@ -121,16 +142,25 @@ bool BTPreOrderIterator<Data>::Terminated() noexcept{
 template<typename Data>
 BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++()
 {
-  if (node.HasLeftChild()){
+  if (node.HasLeftChild())
+  {
     stack.push(node.RightChild());
     node = node.LeftChild;
-  }else{
-    if(node.HasRightChild()){
+  }
+  else
+  {
+    if(node.HasRightChild())
+    {
       node = node.RightChild();
-    }else{
-      if(stack.Empty()){
+    }
+    else
+    {
+      if(stack.Empty())
+      {
         node = nullptr;
-      }else{
+      }
+      else
+      {
         stack.TopNPop();
       }
     }
@@ -141,14 +171,18 @@ BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++()
 
 // Specific constructors
 template<typename Data>
-BTPostOrderIterator<Data>::BTPostOrderIterator(BinaryTree<Data>& post)
+BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& post)
 {
   Node tmp = post.Root();
-  while(tmp.HasLeftChild() || tmp.HasRightChild()){
+  while(tmp.HasLeftChild() || tmp.HasRightChild())
+  {
     stack.push(tmp);
-    if(tmp.HasLeftChild()){
+    if(tmp.HasLeftChild())
+    {
       tmp = tmp.LeftChild();
-    }else{
+    }
+    else
+    {
       tmp = tmp.RightChild();
     }
     node = tmp;
@@ -171,7 +205,7 @@ BTPostOrderIterator<Data>::BTPostOrderIterator(BTPostOrderIterator&& post) noexc
 
 // Copy assignment
 template<typename Data>
-BTPostOrderIterator& BTPostOrderIterator<Data>::operator=(const BTPostOrderIterator& post){
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(const BTPostOrderIterator<Data>& post){
   node = post.node;
   stack = post.stack;
   return *this;
@@ -179,7 +213,7 @@ BTPostOrderIterator& BTPostOrderIterator<Data>::operator=(const BTPostOrderItera
 
 // Move assignment
 template<typename Data>
-BTPostOrderIterator& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator&& post) noexcept
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator<Data>&& post) noexcept
 {
   node = std::move(post.node);
   stack = std::move(post.stack);
@@ -188,56 +222,73 @@ BTPostOrderIterator& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator&& 
 
 // Operator ==
 template<typename Data>
-bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator& post) const noexcept{
-  if(node == post.node && stack == post.stack){
+bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator<Data>& post) const noexcept{
+  if(node == post.node && stack == post.stack)
+  {
     return true;
-  }else{
+  }
+  else
+  {
     return false;
   }
 }
 
 // Operator !=
 template<typename Data>
-bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator& post) const noexcept{
+bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator<Data>& post) const noexcept{
   return !(*this == post);
 }
 
 // Operator *
 template<typename Data>
-Data& BTPostOrderIterator<Data>::operator*(){
-  return node;
+Data& BTPostOrderIterator<Data>::operator*()
+{
+  if(Terminated())
+  {
+    throw std::out_of_range("Iteratore in PostOrder terminato!");
+  }
+  else
+  {
+    return node.Element();
+  }
 }
 
 // Terminated
 template<typename Data>
-bool BTPostOrderIterator<Data>::Terminated() noexcept{
+bool BTPostOrderIterator<Data>::Terminated() noexcept
+{
   return node == nullptr && stack.Empty();
 }
 
-// // Operator ++
-// template<typename Data>
-// BTPostOrderIterator& BTPostOrderIterator<Data>::operator++(){
-//   if(!stack.Empty()){
-//     if(stack.Top().RightChild() != node){
-//       node = stack.Top().RightChild();
-//       while (node.HasLeftChild() || node.HasRightChild()){
-//         if(node.HasLeftChild()){
-//           stack.push(node);
-//           node = node.LeftChild();
-//         }else{
-//           stack.push(node);
-//           node = node.RightChild();
-//         }
-//       }
-//       if(stack.Top().HasRightChild){
-//         node = stack.Top().RightChild();
-//       }
-//       node = stack.TopNPop();
-//     }
-//     // node = stack.Top().RightChild()
-//     // Forse ti sposti sul sottoalbero destro
-//   }
-// }
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++()
+{
+  if (!stack.Empty())
+  {
+    if (stack.Top().RightChild() != node)
+    {
+      node = stack.Top().RightChild();
+      while (node.HasLeftChild() || node.HasRightChild())
+      {
+        if (node.HasLeftChild())
+        {
+          stack.push(node);
+          node = node.LeftChild();
+        }
+        else
+        {
+          stack.push(node);
+          node = node.RightChild();
+        }
+      }
+    }
+    else
+    {
+      node = stack.TopNPop();
+    }
+  }
+}
+
 
 /* ************************************************************************** */
 

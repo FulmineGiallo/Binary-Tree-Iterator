@@ -13,7 +13,8 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeLnk: virtual public BinaryTree<Data> { // Must extend BinaryTree<Data>
+class BinaryTreeLnk: virtual public BinaryTree<Data>
+{
 
 private:
 
@@ -23,32 +24,36 @@ protected:
 
   // using BinaryTree<Data>::???;
 
-  struct NodeLnk: virtual public BinaryTree<Data>::Node { // Must extend Node
+  struct NodeLnk: virtual public BinaryTree<Data>::Node
+  { // Must extend Node
 
   private:
 
-    Data element;
-    NodeLnk *dx = nullptr;
-    NodeLnk *sx = nullptr;
+
 
   protected:
 
-    // ...
+
 
   public:
+    ~NodeLnk();
+    NodeLnk() = default;
+
+    Data element;
+
+    NodeLnk *dx = nullptr;
+    NodeLnk *sx = nullptr;
 
     Data& Element() noexcept;
-    Data& Element() const noexcept;
+    const Data& Element() const noexcept;
     bool IsLeaf() noexcept;
     bool HasLeftChild() noexcept;
     bool HasRightChild() noexcept;
-    NodeLnk& LeftChild();
-    NodeLnk& RightChild();
+    NodeLnk& LeftChild() const;
+    NodeLnk& RightChild() const;
 
   };
-
-  NodeLnk *root = nullptr;
-
+NodeLnk *root = nullptr;
 public:
 
   // Default constructor
@@ -102,7 +107,7 @@ public:
   // Specific member functions (inherited from BinaryTree)
   // type Root() specifiers;
   // Override BinaryTree member (throw std::length_error when empty)
-  NodeLnk& Root() override;
+  NodeLnk& Root() const override;
 
 
   /* ************************************************************************ */
@@ -112,7 +117,8 @@ public:
   // Override Container member
   void Clear() override;
 
-
+  NodeLnk& Insert(const LinearContainer<Data>& con, unsigned long i, NodeLnk* root);
+  NodeLnk& Insert(NodeLnk* root);
 };
 
 /* ************************************************************************** */

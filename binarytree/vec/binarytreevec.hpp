@@ -23,30 +23,26 @@ private:
 
 protected:
 
-  using typename BinaryTree<Data>::Node;
-
-
-  struct NodeVec : virtual public Node
+  struct NodeVec : virtual public  BinaryTree<Data>::Node
   {
     private:
-
-      Vector<NodeVec>* nodi;
-      Data elemento;
-      int indiceNodoCurr;
 
     protected:
 
     public:
+      ~NodeVec() = default;
+      Data elemento;
+      int indiceNodoCurr;
 
       Data& Element() noexcept; // Mutable access to the element (concrete function should not throw exceptions)
-      Data& Element() const noexcept; // Immutable access to the element (concrete function should not throw exceptions)
+      const Data& Element() const noexcept; // Immutable access to the element (concrete function should not throw exceptions)
 
       bool IsLeaf() noexcept; // (concrete function should not throw exceptions)
       bool HasLeftChild() noexcept; // (concrete function should not throw exceptions)
       bool HasRightChild() noexcept; // (concrete function should not throw exceptions)
 
-      NodeVec& LeftChild(); // (concrete function must throw std::out_of_range when not existent)
-      NodeVec& RightChild(); // (concrete function must throw std::out_of_range when not existent)
+      NodeVec& LeftChild() const; // (concrete function must throw std::out_of_range when not existent)
+      NodeVec& RightChild() const; // (concrete function must throw std::out_of_range when not existent)
 
   };
 
@@ -63,7 +59,6 @@ public:
   BinaryTreeVec(const LinearContainer<Data>&); // A binary tree obtained from a LinearContainer
 
   /* ************************************************************************ */
-
   // Copy constructor
   BinaryTreeVec(const BinaryTreeVec&);
   // Move constructor
@@ -88,7 +83,7 @@ public:
 
   /* ************************************************************************ */
   // Specific member functions (inherited from BinaryTree)
-  NodeVec& Root() override; // Override BinaryTree member (throw std::length_error when empty)
+  NodeVec& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
   /* ************************************************************************ */
   // Specific member functions (inherited from Container)
   void Clear() override; // Override Container member

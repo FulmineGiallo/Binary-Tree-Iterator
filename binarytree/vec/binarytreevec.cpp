@@ -44,7 +44,7 @@ Data& BinaryTreeVec<Data>::NodeVec::Element() noexcept
     return vettore[indiceNodoCurr];
 }
 template <typename Data>
-Data& BinaryTreeVec<Data>::NodeVec::Element() const noexcept
+const Data& BinaryTreeVec<Data>::NodeVec::Element() const noexcept
 {
     return vettore[indiceNodoCurr];
 }
@@ -65,21 +65,14 @@ bool BinaryTreeVec<Data>::NodeVec::HasRightChild() noexcept
   else
     return false;
 }
-template <typename Data>
-bool BinaryTreeVec<Data>::NodeVec::IsLeaf() noexcept
-{
-  if(!(HasLeftChild() || HasRightChild()))
-    return true;
-  else
-    return false;
-}
+
 // LeftChild
 template <typename Data>
-NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild()
+typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild() const
 {
   if(HasLeftChild())
   {
-    return vector[2*(indiceNodoCurr + 1)];
+    return vettore[2*(indiceNodoCurr + 1)];
   }
   else
   {
@@ -89,11 +82,11 @@ NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild()
 
 // RightChild
 template <typename Data>
-NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild()
+typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild() const
 {
   if(HasRightChild())
   {
-    return vector[2*(indiceNodoCurr + 1) + 1];
+    return vettore[2*(indiceNodoCurr + 1) + 1];
   }
   else
   {
@@ -102,7 +95,7 @@ NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild()
 }
 //Metodo Root()
 template <typename Data>
-NodeVec& BinaryTreeVec<Data>::Root()
+typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::Root() const
 {
   if(vettore.Size() < 0)
     throw std::length_error("Albero Vuoto, non puoi recuperare la Root!");
