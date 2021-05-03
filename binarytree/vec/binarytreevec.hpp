@@ -33,7 +33,6 @@ protected:
       ~NodeVec() = default;
       Data elemento;
       int indiceNodoCurr;
-
       Data& Element() noexcept; // Mutable access to the element (concrete function should not throw exceptions)
       const Data& Element() const noexcept; // Immutable access to the element (concrete function should not throw exceptions)
 

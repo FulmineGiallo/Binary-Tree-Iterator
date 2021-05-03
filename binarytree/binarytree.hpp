@@ -150,11 +150,11 @@ public:
 
   // type MapPreOrder(arguments) specifiers;
   // Override MappableContainer member
-  virtual void MapPreOrder(const MapFunctor, void*) override;
+  void MapPreOrder(const MapFunctor, void*) override;
 
   // type MapPostOrder(arguments) specifiers;
   // Override MappableContainer member
-  virtual void MapPostOrder(const MapFunctor, void*) override;
+  void MapPostOrder(const MapFunctor, void*) override;
 
   /* ************************************************************************ */
 
@@ -164,16 +164,16 @@ public:
 
   // type FoldPreOrder(arguments) specifiers;
   // Override FoldableContainer member
-  virtual void FoldPreOrder(const FoldFunctor, const void*, void*) const = 0;
+  void FoldPreOrder(const FoldFunctor, const void*, void*) const override;
 
   // type FoldPostOrder(arguments) specifiers;
   // Override FoldableContainer member
-  virtual void FoldPostOrder(const FoldFunctor, const void*, void*) const = 0;
+ void FoldPostOrder(const FoldFunctor, const void*, void*) const override;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from InOrderMappableContainer)
-  // type MapInOrder(arguments) specifiers;
+  void MapInOrder(const MapFunctor, void*) override;
   // Override InOrderMappableContainer member
 
 
@@ -182,19 +182,19 @@ public:
   // Specific member functions (inherited from InOrderFoldableContainer)
   // type FoldInOrder(arguments) specifiers;
   // Override InOrderFoldableContainer member
-
+  void FoldInOrder(const FoldFunctor, const void*, void*) const override;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BreadthMappableContainer)
   // type MapBreadth(arguments) specifiers;
   // Override BreadthMappableContainer member
-
+  void MapBreadth(const MapFunctor, void*) override;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BreadthFoldableContainer)
-  // type FoldBreadth(arguments) specifiers;
+  void FoldBreadth(const FoldFunctor, const void*, void*) const override;
   // Override BreadthFoldableContainer member
 
 
@@ -203,50 +203,50 @@ protected:
   // Auxiliary member functions (for MappableContainer)
   // type MapPreOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-
+  void MapPreOrder(const MapFunctor, void*, Node&);
 
   // type MapPostOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-
+  void MapPostOrder(const MapFunctor, void*, Node&);
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for FoldableContainer)
   // type FoldPreOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-
+  void FoldPreOrder(const FoldFunctor, const void*, void*, Node&);
 
   // type FoldPostOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-
+  void FoldPostOrder(const FoldFunctor, const void*, void*, Node&);
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for InOrderMappableContainer)
   // type MapInOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-
+  void MapInOrder(const MapFunctor, void*, Node&);
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for InOrderFoldableContainer)
   // type FoldInOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-
+  void FoldInOrder(const FoldFunctor, const void*, void*, Node&);
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for BreadthMappableContainer)
   // type MapBreadth(arguments) specifiers;
   // Accessory function executing from one node of the tree
-
+  void MapBreadth(const MapFunctor, void*, Node&);
 
   /* ************************************************************************ */
 
   // Auxiliary member functions (for BreadthFoldableContainer)
   // type FoldBreadth(arguments) specifiers;
   // Accessory function executing from one node of the tree
-
+  void FoldBreadth(const FoldFunctor, const void*, void*, Node&);
 
 };
 
@@ -258,7 +258,7 @@ class BTPreOrderIterator: virtual public ForwardIterator<Data> { // Must extend 
 private:
 
   using typename BinaryTree<Data>::Node;
-  Node node;
+  Node curr = nullptr;
   StackLst<Node> stack;
 
 protected:
@@ -335,7 +335,7 @@ class BTPostOrderIterator: virtual public ForwardIterator<Data> { // Must extend
 private:
 
   using typename BinaryTree<Data>::Node;
-  Node node;
+  Node curr = nullptr;
   StackLst<Node> stack;
 
 protected:
@@ -413,7 +413,7 @@ class BTInOrderIterator: virtual public ForwardIterator<Data>
 private:
 
   using typename BinaryTree<Data>::Node;
-  Node node;
+  Node curr = nullptr;
   StackLst<Node> stack;
 
 protected:
@@ -425,7 +425,7 @@ public:
   // Specific constructors
   // BTInOrderIterator(argument) specifiers;
   // An iterator over a given binary tree
-  BTInOrderIterator(BinaryTree<Data>);
+  BTInOrderIterator(const BinaryTree<Data>&);
 
   /* ************************************************************************ */
 
@@ -489,8 +489,9 @@ class BTBreadthIterator: virtual public ForwardIterator<Data> { // Must extend F
 
 private:
 
-  typename BinaryTree<Data>::Node node;
-  QueueLst<typename BinaryTree<Data>::Node> queue;
+  using typename BinaryTree<Data>::Node;
+  Node curr = nullptr;
+  QueueLst<Node> coda;
 
 protected:
 
@@ -501,7 +502,7 @@ public:
   // Specific constructors
   // BTBreadthIterator(argument) specifiers;
   // An iterator over a given binary tree
-  BTBreadthIterator(BinaryTree<Data>);
+  BTBreadthIterator(const BinaryTree<Data>&);
 
   /* ************************************************************************ */
 
@@ -533,10 +534,10 @@ public:
 
   // Comparison operators
   // type operator==(argument) specifiers;
-  bool operator==(BTBreadthIterator<Data>&&) const noexcept;
+  bool operator==(const BTBreadthIterator<Data>& ) const noexcept;
 
   // type operator!=(argument) specifiers;
-  bool operator!=(BTBreadthIterator<Data>&&) const noexcept;
+  bool operator!=(const BTBreadthIterator<Data>& ) const noexcept;
 
   /* ************************************************************************ */
 
