@@ -28,11 +28,12 @@ private:
 protected:
 
    using BreadthMappableContainer<Data>::size;
-   using InOrderMappableContainer<Data>::size;
+
 
 public:
 
-  struct Node {
+  struct Node
+  {
 
   private:
 
@@ -214,11 +215,11 @@ protected:
   // Auxiliary member functions (for FoldableContainer)
   // type FoldPreOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-  void FoldPreOrder(const FoldFunctor, const void*, void*, Node&);
+  void FoldPreOrder(const FoldFunctor, const void*, void*, Node&) const;
 
   // type FoldPostOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-  void FoldPostOrder(const FoldFunctor, const void*, void*, Node&);
+  void FoldPostOrder(const FoldFunctor, const void*, void*, Node&) const;
 
   /* ************************************************************************ */
 
@@ -232,7 +233,7 @@ protected:
   // Auxiliary member functions (for InOrderFoldableContainer)
   // type FoldInOrder(arguments) specifiers;
   // Accessory function executing from one node of the tree
-  void FoldInOrder(const FoldFunctor, const void*, void*, Node&);
+  void FoldInOrder(const FoldFunctor, const void*, void*, Node&) const;
 
   /* ************************************************************************ */
 
@@ -246,20 +247,20 @@ protected:
   // Auxiliary member functions (for BreadthFoldableContainer)
   // type FoldBreadth(arguments) specifiers;
   // Accessory function executing from one node of the tree
-  void FoldBreadth(const FoldFunctor, const void*, void*, Node&);
+  void FoldBreadth(const FoldFunctor, const void*, void*, Node&) const;
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BTPreOrderIterator: virtual public ForwardIterator<Data> { // Must extend ForwardIterator<Data>
+class BTPreOrderIterator: virtual public ForwardIterator<Data> {
 
 private:
 
-  using typename BinaryTree<Data>::Node;
-  Node curr = nullptr;
-  StackLst<Node> stack;
+  typename BinaryTree<Data>::Node* curr = nullptr;
+  StackLst<typename BinaryTree<Data>::Node*> stack;
+
 
 protected:
 
@@ -316,27 +317,27 @@ public:
 
   // type Terminated() specifiers;
   // (should not throw exceptions)
-  bool Terminated() noexcept;
+  bool Terminated() const noexcept override;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from ForwardIterator)
   // type operator++() specifiers;
   // (throw std::out_of_range when terminated)
-  BTPreOrderIterator& operator++();
+  BTPreOrderIterator& operator++() override;
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BTPostOrderIterator: virtual public ForwardIterator<Data> { // Must extend ForwardIterator<Data>
+class BTPostOrderIterator: virtual public ForwardIterator<Data>
+{
 
 private:
 
-  using typename BinaryTree<Data>::Node;
-  Node curr = nullptr;
-  StackLst<Node> stack;
+  typename BinaryTree<Data>::Node* curr = nullptr;
+  StackLst<typename BinaryTree<Data>::Node*> stack;
 
 protected:
 
@@ -389,18 +390,18 @@ public:
   // Specific member functions (inherited from Iterator)
   // type operator*() specifiers;
   // (throw std::out_of_range when terminated)
-  Data& operator*();
+  Data& operator*() const;
 
   // type Terminated() specifiers;
   // (should not throw exceptions)
-  bool Terminated() noexcept;
+  bool Terminated() const noexcept override;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from ForwardIterator)
   // type operator++() specifiers;
   // (throw std::out_of_range when terminated)
-  BTPostOrderIterator<Data>& operator++();
+  BTPostOrderIterator<Data>& operator++() override;
 
 };
 
@@ -412,9 +413,8 @@ class BTInOrderIterator: virtual public ForwardIterator<Data>
 
 private:
 
-  using typename BinaryTree<Data>::Node;
-  Node curr = nullptr;
-  StackLst<Node> stack;
+  typename BinaryTree<Data>::Node* curr = nullptr;
+  StackLst<typename BinaryTree<Data>::Node*> stack;
 
 protected:
 
@@ -467,18 +467,18 @@ public:
   // Specific member functions (inherited from Iterator)
   // type operator*() specifiers;
   // (throw std::out_of_range when terminated)
-  Data& operator*() const;
+  Data& operator*() const override;
 
   // type Terminated() specifiers;
   // (should not throw exceptions)
-  bool Terminated() noexcept;
+  bool Terminated() const noexcept override;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from ForwardIterator)
   // type operator++() specifiers;
   // (throw std::out_of_range when terminated)
-  BTInOrderIterator<Data>& operator++();
+  BTInOrderIterator<Data>& operator++() override;
 
 };
 
@@ -489,9 +489,8 @@ class BTBreadthIterator: virtual public ForwardIterator<Data> { // Must extend F
 
 private:
 
-  using typename BinaryTree<Data>::Node;
-  Node curr = nullptr;
-  QueueLst<Node> coda;
+  typename BinaryTree<Data>::Node* curr = nullptr;
+  QueueLst<typename BinaryTree<Data>::Node*> coda;
 
 protected:
 
@@ -544,11 +543,11 @@ public:
   // Specific member functions (inherited from Iterator)
   // type operator*() specifiers;
   // (throw std::out_of_range when terminated)
-  Data& operator*() const;
+  Data& operator*() const override;
 
   // type Terminated() specifiers;
   // (should not throw exceptions)
-  bool Terminated() noexcept;
+  bool Terminated() const noexcept override;
 
 
   /* ************************************************************************ */
@@ -556,7 +555,7 @@ public:
   // Specific member functions (inherited from ForwardIterator)
   // type operator++() specifiers;
   // (throw std::out_of_range when terminated)
-  BTBreadthIterator<Data>& operator++();
+  BTBreadthIterator<Data>& operator++() override;
 
 };
 

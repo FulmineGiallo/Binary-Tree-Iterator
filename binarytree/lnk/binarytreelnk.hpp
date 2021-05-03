@@ -25,7 +25,7 @@ protected:
   // using BinaryTree<Data>::???;
 
   struct NodeLnk: virtual public BinaryTree<Data>::Node
-  { // Must extend Node
+  {
 
   private:
 
@@ -53,7 +53,7 @@ protected:
     NodeLnk& RightChild() const;
 
   };
-NodeLnk *root = nullptr;
+  NodeLnk *root = nullptr;
 public:
 
   // Default constructor
@@ -117,8 +117,8 @@ public:
   // Override Container member
   void Clear() override;
 
-  NodeLnk& Insert(const LinearContainer<Data>& con, unsigned long i, NodeLnk* root);
-  NodeLnk& Insert(NodeLnk* root);
+  NodeLnk* Insert(const LinearContainer<Data>& con, unsigned long i, NodeLnk* root);
+  NodeLnk* Insert(NodeLnk* root);
 };
 
 /* ************************************************************************** */

@@ -20,7 +20,7 @@
 using namespace std;
 
 /* ************************************************************************** */
-/*
+
 void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, int& testnum, int& testerr) {
   int loctestnum = 0, loctesterr = 0;
   try {
@@ -224,8 +224,8 @@ void stestBinaryTreeString(int& testnum, int& testerr) {
 
 void testSimpleExercise3() {
   int testnum = 0, testerr = 0;
-  //stestBinaryTreeInt(testnum, testerr);
-  //stestBinaryTreeFloat(testnum, testerr);
-  //stestBinaryTreeString(testnum, testerr);
+  stestBinaryTreeInt(testnum, testerr);
+  stestBinaryTreeFloat(testnum, testerr);
+  stestBinaryTreeString(testnum, testerr);
   cout << endl << "Exercise 3 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }
