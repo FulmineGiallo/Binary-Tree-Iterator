@@ -22,37 +22,37 @@ private:
 
 protected:
 
-  // using BinaryTree<Data>::???;
+  using BinaryTree<Data>::size;
 
   struct NodeLnk: virtual public BinaryTree<Data>::Node
   {
 
   private:
 
-
-
   protected:
 
-
-
   public:
+
+    NodeLnk(const Data&);
+
     ~NodeLnk();
     NodeLnk() = default;
 
     Data element;
-
     NodeLnk *dx = nullptr;
     NodeLnk *sx = nullptr;
 
-    Data& Element() noexcept;
-    const Data& Element() const noexcept;
-    bool IsLeaf() noexcept;
-    bool HasLeftChild() noexcept;
-    bool HasRightChild() noexcept;
-    NodeLnk& LeftChild() const;
-    NodeLnk& RightChild() const;
+    Data& Element() noexcept override;
+    const Data& Element() const noexcept override;
+
+    bool IsLeaf() const noexcept override;
+    bool HasLeftChild() const noexcept override;
+    bool HasRightChild() const noexcept override;
+    NodeLnk& LeftChild() const override;
+    NodeLnk& RightChild() const override;
 
   };
+
   NodeLnk *root = nullptr;
 public:
 

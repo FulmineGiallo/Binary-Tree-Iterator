@@ -22,6 +22,7 @@ private:
   // ...
 
 protected:
+  using BinaryTree<Data>::size;
 
   struct NodeVec : virtual public  BinaryTree<Data>::Node
   {
@@ -31,22 +32,24 @@ protected:
 
     public:
       ~NodeVec() = default;
+      NodeVec() = default;
       Data elemento;
       int indiceNodoCurr;
-      
-      Data& Element() noexcept; // Mutable access to the element (concrete function should not throw exceptions)
-      const Data& Element() const noexcept; // Immutable access to the element (concrete function should not throw exceptions)
 
-      bool IsLeaf() noexcept; // (concrete function should not throw exceptions)
-      bool HasLeftChild() noexcept; // (concrete function should not throw exceptions)
-      bool HasRightChild() noexcept; // (concrete function should not throw exceptions)
+      Vector<NodeVec*> *vec;
 
-      NodeVec& LeftChild() const; // (concrete function must throw std::out_of_range when not existent)
-      NodeVec& RightChild() const; // (concrete function must throw std::out_of_range when not existent)
+      Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
+      const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
+
+      bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
+      bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
+
+      NodeVec& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
+      NodeVec& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
 
   };
 
-  Vector<NodeVec> vettore();
+  Vector<NodeVec*> vettore;
 
 
 public:
@@ -60,13 +63,13 @@ public:
 
   /* ************************************************************************ */
   // Copy constructor
-  BinaryTreeVec(const BinaryTreeVec&);
+  BinaryTreeVec(const BinaryTreeVec<Data>&);
   // Move constructor
-  BinaryTreeVec(BinaryTreeVec&&) noexcept;
+  BinaryTreeVec(BinaryTreeVec<Data>&&) noexcept;
 
   /* ************************************************************************ */
   // Destructor
-  ~BinaryTreeVec() = default;
+  ~BinaryTreeVec();
 
   /* ************************************************************************ */
   // Copy assignment
@@ -87,6 +90,8 @@ public:
   /* ************************************************************************ */
   // Specific member functions (inherited from Container)
   void Clear() override; // Override Container member
+
+
   // svuoto vettore con Vector<Data>::Clear();
 };
 

@@ -86,20 +86,20 @@ public:
 
     // type IsLeaf() specifiers;
     // (concrete function should not throw exceptions)
-    virtual bool IsLeaf() noexcept = 0;
+    virtual bool IsLeaf() const noexcept;
 
     // type HasLeftChild() specifiers;
     // (concrete function should not throw exceptions)
-    virtual bool HasLeftChild() noexcept = 0;
+    virtual bool HasLeftChild() const noexcept = 0;
 
 
     // type HasRightChild() specifiers;
     // (concrete function should not throw exceptions)
-    virtual bool HasRightChild() noexcept = 0;
+    virtual bool HasRightChild() const noexcept = 0;
 
     // type LeftChild() specifiers;
     // (concrete function must throw std::out_of_range when not existent)
-    virtual Node& LeftChild() const = 0;
+    virtual Node& LeftChild() const  = 0;
 
     // type RightChild() specifiers;
     // (concrete function must throw std::out_of_range when not existent)
@@ -118,23 +118,23 @@ public:
   // Copy assignment
   // type operator=(argument);
   // Copy assignment of abstract types should not be possible.
-  BinaryTree& operator=(const BinaryTree&) = delete;
+  BinaryTree& operator=(const BinaryTree<Data>&) = delete;
 
   // Move assignment
   // type operator=(argument);
   // Move assignment of abstract types should not be possible.
-  BinaryTree& operator=(BinaryTree&&) noexcept = delete;
+  BinaryTree& operator=(BinaryTree<Data>&&) noexcept = delete;
 
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers;
   // Comparison of abstract binary tree is possible.
-  bool operator==(const BinaryTree&) const noexcept;
+  bool operator==(const BinaryTree<Data>&) const noexcept;
 
   // type operator!=(argument) specifiers;
   // Comparison of abstract binary tree is possible.
-  bool operator!=(const BinaryTree&) const noexcept;
+  bool operator!=(const BinaryTree<Data>&) const noexcept;
 
   /* ************************************************************************ */
 
@@ -146,8 +146,8 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from MappableContainer)
-  // using typename MappableContainer<Data>::MapFunctor;
-  typedef std::function<void(Data&, void*)> MapFunctor;
+  using typename MappableContainer<Data>::MapFunctor;
+
 
   // type MapPreOrder(arguments) specifiers;
   // Override MappableContainer member
@@ -160,8 +160,8 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from FoldableContainer)
-  // using typename FoldableContainer<Data>::FoldFunctor;
-  typedef std::function<void(const Data&, const void*, void*) noexcept> FoldFunctor;
+  using typename FoldableContainer<Data>::FoldFunctor;
+
 
   // type FoldPreOrder(arguments) specifiers;
   // Override FoldableContainer member
@@ -336,7 +336,7 @@ class BTPostOrderIterator: virtual public ForwardIterator<Data>
 
 private:
 
-  typename BinaryTree<Data>::Node* curr = nullptr;
+  typename BinaryTree<Data>::Node* node = nullptr;
   StackLst<typename BinaryTree<Data>::Node*> stack;
 
 protected:
@@ -457,10 +457,10 @@ public:
 
   // Comparison operators
   // type operator==(argument) specifiers;
-  bool operator==(BTInOrderIterator<Data>&&) const noexcept;
+  bool operator==(const BTInOrderIterator<Data>&) const noexcept;
 
   // type operator!=(argument) specifiers;
-  bool operator!=(BTInOrderIterator<Data>&&) const noexcept;
+  bool operator!=(const BTInOrderIterator<Data>&) const noexcept;
 
   /* ************************************************************************ */
 
