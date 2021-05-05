@@ -30,23 +30,23 @@ public:
   // Copy assignment
   // type operator=(argument);
   // Copy assignment of abstract types should not be possible.
-  Iterator& operator=(const Iterator<Data>&) = delete;
+  Iterator& operator=(const Iterator&) = delete;
 
   // Move assignment
   // type operator=(argument);
   // Move assignment of abstract types should not be possible.
-  Iterator& operator=(Iterator<Data>&&) noexcept = delete;
+  Iterator& operator=(Iterator&&) noexcept = delete;
 
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers;
   // Comparison of abstract types might not be possible.
-  bool operator==(const Iterator<Data>&) const noexcept = delete;
+  bool operator==(const Iterator&) const noexcept = delete;
 
   // type operator!=(argument) specifiers;
   // Comparison of abstract types might not be possible.
-  bool operator!=(const Iterator<Data>&) const noexcept = delete;
+  bool operator!=(const Iterator&) const noexcept = delete;
 
   /* ************************************************************************ */
 
@@ -86,23 +86,23 @@ public:
   // Copy assignment
   // type operator=(argument);
   // Copy assignment of abstract types should not be possible.
-  ForwardIterator& operator=(const ForwardIterator<Data>&) = delete;
+  ForwardIterator& operator=(const ForwardIterator&) = delete;
 
   // Move assignment
   // type operator=(argument);
   // Move assignment of abstract types should not be possible.
-  ForwardIterator& operator=(ForwardIterator<Data>&&) noexcept = delete;
+  ForwardIterator& operator=(ForwardIterator&&) noexcept = delete;
 
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers;
   // Comparison of abstract types might not be possible.
-  bool operator==(const ForwardIterator<Data>&) const noexcept = delete;
+  bool operator==(const ForwardIterator&) const noexcept = delete;
 
   // type operator!=(argument) specifiers;
   // Comparison of abstract types might not be possible.
-  bool operator!=(const ForwardIterator<Data>&) const noexcept = delete;
+  bool operator!=(const ForwardIterator&) const noexcept = delete;
 
   /* ************************************************************************ */
 

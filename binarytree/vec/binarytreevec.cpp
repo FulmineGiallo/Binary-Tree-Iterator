@@ -2,183 +2,178 @@
 namespace lasd {
 
 /* ************************************************************************** */
-//Copy constructor
-template <typename Data>
-BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& albero)
-{
-  vettore.Resize(albero.size);
-  for(unsigned long i = 0; i < albero.size; i++)
-  {
-    vettore[i] = new NodeVec();
-    vettore[i]->elemento = albero.vettore[i]->elemento;
-    vettore[i]->indiceNodoCurr = albero.vettore[i]->indiceNodoCurr;
 
-    vettore[i]->vec = &vettore;
+// Copy constructor
+template <typename Data>
+BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& tree){
+  vector.Resize(tree.size);
+  for(unsigned int i = 0; i < tree.size; i++){
+    vector[i] = new NodeVec();
+    vector[i] -> element = tree.vector[i] -> element;
+    vector[i] -> indexCurrNode = tree.vector[i] -> indexCurrNode;
+    vector[i] -> v = &vector;
   }
-  size = albero.size;
-
+  size = tree.size;
 }
 
+// Move constructor
 template <typename Data>
-BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data>& con)
-{
-  vettore.Resize(con.Size());
-  for(unsigned long i = 0; i < con.Size(); i++)
-  {
-    vettore[i] = new NodeVec();
-    vettore[i]->elemento = con[i];
-    vettore[i]->indiceNodoCurr = i;
+BinaryTreeVec<Data>::BinaryTreeVec(BinaryTreeVec<Data>&& tree) noexcept{
+  std::swap(vector, tree.vector);
+  std::swap(size, tree.size);
+}
 
-    vettore[i]->vec = &vettore;
+// Costruttore da un'altra struttura LinearContainer<Data> (vector, list, etc...)
+template<typename Data>
+BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data>& lcon){
+  vector.Resize(lcon.Size());
+  for(unsigned int i = 0; i < lcon.Size(); i++){
+  vector[i] = new NodeVec();
+  vector[i] -> element = lcon[i];
+  vector[i] -> indexCurrNode = i;
+  vector[i] -> v = &vector;
   }
-  size = con.Size();
+  size = lcon.Size();
 }
 
-//Move constructor
-template <typename Data>
-BinaryTreeVec<Data>::BinaryTreeVec(BinaryTreeVec&& albero) noexcept
-{
-  std::swap(vettore, albero.vettore);
-  std::swap(size, albero.size);
-}
-//Copy Assigment
-template <typename Data>
-BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(const BinaryTreeVec<Data>& albero)
-{
+// Distruttore
+template<typename Data>
+BinaryTreeVec<Data>::~BinaryTreeVec(){
   Clear();
-  vettore.Resize(albero.size);
-  for(unsigned i = 0; i < albero.size; i++)
-  {
-    vettore[i] = new NodeVec();
-    vettore[i]->elemento = albero.vettore[i]->elemento;
-    vettore[i]->indiceNodoCurr = albero.vettore[i]->indiceNodoCurr;
+}
 
-    vettore[i]->vec = &vettore;
+// Copy assignment
+template <typename Data>
+BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(const BinaryTreeVec<Data>& tree){
+  Clear();
+  vector.Resize(tree.vector.Size());
+  for(unsigned int i = 0; i < tree.vector.Size(); i++){
+  vector[i] = new NodeVec();
+  vector[i] -> element = tree.vector[i] -> element;
+  vector[i] -> indexCurrNode = i;
+  vector[i] -> v = &vector;
   }
-  size = albero.size;
-  return *this;
-}
-//Move Assigment
-template <typename Data>
-BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec&& albero) noexcept
-{
-  std::swap(vettore, albero.vettore);
-  std::swap(size, albero.size);
+  size = tree.Size();
   return *this;
 }
 
+// Move assignment
 template <typename Data>
-Data& BinaryTreeVec<Data>::NodeVec::Element() noexcept
-{
-  return elemento;
-}
-template <typename Data>
-const Data& BinaryTreeVec<Data>::NodeVec::Element() const noexcept
-{
-  return elemento;
+BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec<Data>&& tree) noexcept{
+  std::swap(vector, tree.vector);
+  std::swap(size, tree.size);
+  return *this;
 }
 
+// Element
 template <typename Data>
-bool BinaryTreeVec<Data>::NodeVec::HasLeftChild() const noexcept
-{
-  if(2*(indiceNodoCurr) + 1 < vec->Size())
-    return true;
-  else
-    return false;
-
+Data& BinaryTreeVec<Data>::NodeVec::Element() noexcept{
+  return element;
 }
+
+// Element (const)
 template <typename Data>
-bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept
-{
-  if(2*(indiceNodoCurr) + 2 < vec->Size())
+const Data& BinaryTreeVec<Data>::NodeVec::Element() const noexcept{
+  return element;
+}
+
+// HasLeftChild
+template <typename Data>
+bool BinaryTreeVec<Data>::NodeVec::HasLeftChild() const noexcept{
+  if(2*(indexCurrNode) + 1 < v->Size()){
     return true;
-  else
+  }else{
     return false;
+  }
+}
+
+// HasRightChild
+template <typename Data>
+bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept{
+  if(2*(indexCurrNode ) + 2 < v->Size()){
+  return true;
+  }else{
+    return false;
+  }
+}
+
+// IsLeaf
+template <typename Data>
+bool BinaryTreeVec<Data>::NodeVec::IsLeaf() const noexcept{
+  if(!(HasLeftChild() || HasRightChild())){
+    return true;
+  }else{
+    return false;
+  }
 }
 
 // LeftChild
 template <typename Data>
-typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild() const
-{
-  if(HasLeftChild())
-  {
-    return *((*vec)[(2*indiceNodoCurr)+ 1]);
-  }
-  else
-  {
+typename BinaryTreeVec<Data>::NodeVec&
+BinaryTreeVec<Data>::NodeVec::LeftChild() const{
+  if(HasLeftChild()){
+    return *((*v)[2*(indexCurrNode) + 1]);
+  }else{
     throw std::out_of_range("Il nodo corrente non ha figlio sinistro!");
   }
-
 }
 
 // RightChild
 template <typename Data>
-typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild() const
-{
-  if(HasRightChild())
-  {
-   return *((*vec)[(2*indiceNodoCurr)+ 2]);
-  }
-  else
-  {
+typename BinaryTreeVec<Data>::NodeVec&
+BinaryTreeVec<Data>::NodeVec::RightChild() const{
+  if(HasRightChild()){
+    return *((*v)[2*(indexCurrNode) + 2]);
+  }else{
     throw std::out_of_range("Il nodo corrente non ha figlio destro!");
   }
-
-}
-//Metodo Root()
-template <typename Data>
-typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::Root() const
-{
-  if(size > 0)
-    return *(vettore[0]);
-  else
-    throw std::length_error("Albero vuoto!");
 }
 
-//Metodo Clear()
+// Root
 template <typename Data>
-void BinaryTreeVec<Data>::Clear()
-{
-  for(int i = 0; i < size; i++)
-  {
-    delete vettore[i];
+typename BinaryTreeVec<Data>::NodeVec&
+BinaryTreeVec<Data>::Root() const{
+   if(vector.Empty()){
+     throw std::length_error("Albero vuoto!");
+   }else{
+     return *(vector[0]);
+   }
+}
+
+// Clear
+template <typename Data>
+void BinaryTreeVec<Data>::Clear(){
+  for(unsigned int i = 0; i < size; i++){
+    delete vector[i];
   }
-  vettore.Clear();
+  vector.Clear();
   size = 0;
-}
-
-template <typename Data>
-BinaryTreeVec<Data>::~BinaryTreeVec()
-{
-  Clear();
 }
 
 // Opertator ==
 template <typename Data>
-bool BinaryTreeVec<Data>::operator==(const BinaryTreeVec& albero2) const noexcept
-{
-  // if(size == albero2)
-  // {
-  //   for(unsigned long i = 0; i < size; i++)
-  //   {
-  //     if(vettore[i]->elemento == albero2.vettore[i]->element || vettore[i]->indiceNodoCurr == albero2.vettore[i]->indiceNodoCurr)
-  //     {
-  //       continue;
-  //     }
-  //     else
-  //       return false;
-  //   }
-  // }
-  // else
-    return false;
+bool BinaryTreeVec<Data>::operator==(const BinaryTreeVec& tree) const noexcept{
+  bool val = true;
+  if(vector.Size() == tree.vector.Size()){
+    for(unsigned int i = 0; i < vector.Size(); i++){
+      if(val && tree.vector[i]->Element() != vector[i]->Element()){
+        val = false;
+      }else{
+        val = true;
+      }
+    }
+  }else{
+    val = false;
+  }
+  return val;
 }
+
 // Opertator !=
 template <typename Data>
-bool BinaryTreeVec<Data>::operator!=(const BinaryTreeVec& albero2) const noexcept
-{
-  // return  !(Root() == albero2.Root();
-  return false;
+bool BinaryTreeVec<Data>::operator!=(const BinaryTreeVec& tree) const noexcept{
+  return !(*this == tree);
 }
+
 /* ************************************************************************** */
 
 }

@@ -14,85 +14,109 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec : virtual public BinaryTree<Data>
-{
+class BinaryTreeVec: virtual public BinaryTree<Data> { // Must extend BinaryTree<Data>
 
 private:
 
   // ...
 
 protected:
+
   using BinaryTree<Data>::size;
 
-  struct NodeVec : virtual public  BinaryTree<Data>::Node
-  {
-    private:
+  struct NodeVec: virtual public BinaryTree<Data>::Node { // Must extend Node
 
-    protected:
+  private:
 
-    public:
-      ~NodeVec() = default;
-      NodeVec() = default;
-      Data elemento;
-      int indiceNodoCurr;
+    // ...
 
-      Vector<NodeVec*> *vec;
+  protected:
 
-      Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
-      const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
+    // ...
 
-      bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
-      bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
+  public:
 
-      NodeVec& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
-      NodeVec& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
+    Data element;
+    int indexCurrNode;
+    Vector<NodeVec*> *v;
+
+    Data& Element() noexcept override;
+    const Data& Element() const noexcept override;
+    bool IsLeaf() const noexcept override;
+    bool HasLeftChild() const noexcept override;
+    bool HasRightChild() const noexcept override;
+    NodeVec& LeftChild() const override;
+    NodeVec& RightChild() const override;
+
+    NodeVec() = default;
+    ~NodeVec() = default;
 
   };
 
-  Vector<NodeVec*> vettore;
-
+  Vector<NodeVec*> vector;
 
 public:
+
   // Default constructor
-  BinaryTreeVec() = default; //Albero vuoto
+  // BinaryTreeVec() specifiers;
+  BinaryTreeVec() = default;
 
   /* ************************************************************************ */
 
   // Specific constructors
-  BinaryTreeVec(const LinearContainer<Data>&); // A binary tree obtained from a LinearContainer
+  // BinaryTreeVec(argument) specifiers;
+  // A binary tree obtained from a LinearContainer
+  BinaryTreeVec(const LinearContainer<Data>&);
 
   /* ************************************************************************ */
+
   // Copy constructor
+  // BinaryTreeVec(argument) specifiers;
   BinaryTreeVec(const BinaryTreeVec<Data>&);
+
   // Move constructor
+  // BinaryTreeVec(argument) specifiers;
   BinaryTreeVec(BinaryTreeVec<Data>&&) noexcept;
 
   /* ************************************************************************ */
+
   // Destructor
+  // ~BinaryTreeVec() specifiers;
   ~BinaryTreeVec();
 
   /* ************************************************************************ */
+
   // Copy assignment
-  BinaryTreeVec<Data>& operator=(const BinaryTreeVec<Data>& albero);
+  // type operator=(argument) specifiers;
+  BinaryTreeVec& operator=(const BinaryTreeVec<Data>& tree);
 
   // Move assignment
-  BinaryTreeVec<Data>& operator=(BinaryTreeVec<Data>&&) noexcept;
+  // type operator=(argument) specifiers;
+  BinaryTreeVec& operator=(BinaryTreeVec<Data>&& tree) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
+  // type operator==(argument) specifiers;
   bool operator==(const BinaryTreeVec<Data>&) const noexcept;
+
+  // type operator!=(argument) specifiers;
   bool operator!=(const BinaryTreeVec<Data>&) const noexcept;
 
   /* ************************************************************************ */
+
   // Specific member functions (inherited from BinaryTree)
-  NodeVec& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
+  // type Root() specifiers;
+  // Override BinaryTree member (throw std::length_error when empty)
+  NodeVec& Root() const override;
+
   /* ************************************************************************ */
+
   // Specific member functions (inherited from Container)
-  void Clear() override; // Override Container member
+  // type Clear() specifiers;
+  // Override Container member
+  void Clear() override;
 
-
-  // svuoto vettore con Vector<Data>::Clear();
 };
 
 /* ************************************************************************** */

@@ -19,5 +19,4 @@ bool FoldableContainer<Data>::Exists(const Data& dat) const noexcept{
   return exists;
 }
 
-
 }

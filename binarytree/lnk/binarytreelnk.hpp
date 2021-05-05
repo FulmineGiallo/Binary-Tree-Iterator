@@ -13,8 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeLnk: virtual public BinaryTree<Data>
-{
+class BinaryTreeLnk: virtual public BinaryTree<Data> { // Must extend BinaryTree<Data>
 
 private:
 
@@ -24,36 +23,38 @@ protected:
 
   using BinaryTree<Data>::size;
 
-  struct NodeLnk: virtual public BinaryTree<Data>::Node
-  {
+  struct NodeLnk: virtual public BinaryTree<Data>::Node { // Must extend Node
 
   private:
 
+    // ...
+
   protected:
 
+    // ...
+
   public:
-
-    NodeLnk(const Data&);
-
-    ~NodeLnk();
     NodeLnk() = default;
-
+    NodeLnk(const Data&);
+    ~NodeLnk();
     Data element;
-    NodeLnk *dx = nullptr;
-    NodeLnk *sx = nullptr;
+    NodeLnk* right = nullptr;
+    NodeLnk* left = nullptr;
 
     Data& Element() noexcept override;
     const Data& Element() const noexcept override;
-
     bool IsLeaf() const noexcept override;
     bool HasLeftChild() const noexcept override;
     bool HasRightChild() const noexcept override;
     NodeLnk& LeftChild() const override;
     NodeLnk& RightChild() const override;
 
+
+
   };
 
   NodeLnk *root = nullptr;
+
 public:
 
   // Default constructor
@@ -117,8 +118,11 @@ public:
   // Override Container member
   void Clear() override;
 
-  NodeLnk* Insert(const LinearContainer<Data>& con, unsigned long i, NodeLnk* root);
-  NodeLnk* Insert(NodeLnk* root);
+  // Funzione Insert
+  NodeLnk* Insert(NodeLnk*);
+  // Funzione Insert (LinearContainer)
+  NodeLnk* Insert(const LinearContainer<Data>&, unsigned int, NodeLnk*);
+
 };
 
 /* ************************************************************************** */
