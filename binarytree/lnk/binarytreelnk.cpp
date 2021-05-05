@@ -5,109 +5,118 @@ namespace lasd {
 
 // Costruttore NodoLnk
 template<typename Data>
-BinaryTreeLnk<Data>::NodeLnk::NodeLnk(const Data& val){
+BinaryTreeLnk<Data>::NodeLnk::NodeLnk(const Data& val)
+{
   element = val;
 }
 
 // Distruttore NodoLnk
 template<typename Data>
-BinaryTreeLnk<Data>::NodeLnk::~NodeLnk(){
-  if(left != nullptr){
+BinaryTreeLnk<Data>::NodeLnk::~NodeLnk()
+{
+  if(left != nullptr)
     delete left;
-  }
-  if(right != nullptr){
+  if(right != nullptr)
     delete right;
-  }
+
 }
 
-// Element
+//Mutable Element
 template <typename Data>
-Data& BinaryTreeLnk<Data>::NodeLnk::Element() noexcept{
+Data& BinaryTreeLnk<Data>::NodeLnk::Element() noexcept
+{
   return element;
 }
 
-// Element (const)
+//Immutable Element
 template <typename Data>
-const Data& BinaryTreeLnk<Data>::NodeLnk::Element() const noexcept{
+const Data& BinaryTreeLnk<Data>::NodeLnk::Element() const noexcept
+{
   return element;
 }
 
-// HasLeftChild
+//Metodo HasLeftChild(), ritorna true se il figlio sinistro esiste, altrimenti false.
 template <typename Data>
-bool BinaryTreeLnk<Data>::NodeLnk::HasLeftChild() const noexcept{
-  if(left!=nullptr){
-    return true;
-  }else{
+bool BinaryTreeLnk<Data>::NodeLnk::HasLeftChild() const noexcept
+{
+  if(left==nullptr)
     return false;
-  }
+  else
+    return true;
 }
 
-// HasRightChild
+//Metodo HasRightChild(), ritorna true se il figlio sinistro esiste, altrimenti false.
 template<typename Data>
-bool BinaryTreeLnk<Data>::NodeLnk::HasRightChild() const noexcept{
-  if(right!=nullptr){
-    return true;
-  }else{
+bool BinaryTreeLnk<Data>::NodeLnk::HasRightChild() const noexcept
+{
+  if(right==nullptr)
     return false;
-  }
+  else
+    return true;
 }
 
-// IsLeaf
+// Metodo IsLeaf(), restuisce vero, se un nodo non ha il figlio sinistro, ne un nodo destro, altrimenti false.
 template<typename Data>
-bool BinaryTreeLnk<Data>::NodeLnk::IsLeaf() const noexcept{
-  if(right==nullptr && left==nullptr){
+bool BinaryTreeLnk<Data>::NodeLnk::IsLeaf() const noexcept
+{
+  if(!HasLeftChild() && !HasRightChild())
     return true;
-  }else{
+  else
     return false;
-  }
 }
 
 // LeftChild
 template<typename Data>
 typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild() const{
-   if(HasLeftChild()){
+   if(HasLeftChild())
      return *left;
-   }else{
-     throw std::out_of_range("il nodo corrente non ha figlio sinistro!");
-   }
+   else
+     throw std::out_of_range("Questo nodo non ha figlio sinistro!");
+
 }
 
 // RightChild
 template<typename Data>
 typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::RightChild() const{
-  if(HasRightChild()){
+  if(HasRightChild())
     return *right;
-  }else{
-    throw std::out_of_range("il nodo corrente non ha figlio destro!");
-  }
+  else
+    throw std::out_of_range("Questo nodo non ha figlio destro!");
+
 }
 
-// Costruttore da un'altra struttura LinearContainer<Data> (vector, list, etc...)
+// Costruttore da un'altra struttura LinearContainer, list o vector.
 template<typename Data>
-BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& lcon){
-  size = lcon.Size();
-  root = Insert(lcon,0,root);
+BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& container)
+{
+  size = container.Size();
+  root = Insert(container,0,root);
 }
 
 // Copy constructor
 template<typename Data>
-BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk& tree){
-  if(tree.size > 0){
+BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk& tree)
+{
+  if(tree.size > 0)
+  {
     root = Insert(&tree.Root());
     size = tree.size;
   }
+
 }
 
 // Move constructor
 template<typename Data>
-BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk&& tree) noexcept{
+BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk&& tree) noexcept
+{
   std::swap(root, tree.root);
   std::swap(size, tree.size);
 }
 
 // Destructor
 template<typename Data>
-BinaryTreeLnk<Data>::~BinaryTreeLnk(){
+BinaryTreeLnk<Data>::~BinaryTreeLnk()
+{
   Clear();
 }
 
@@ -115,7 +124,8 @@ BinaryTreeLnk<Data>::~BinaryTreeLnk(){
 template<typename Data>
 BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data>& tree){
   Clear();
-  if(!tree.Empty()){
+  if(!tree.Empty())
+  {
     root = Insert(&tree.Root());
     size = tree.size;
   }
@@ -124,7 +134,8 @@ BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data>& t
 
 // Move assignment
 template<typename Data>
-BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk<Data>&& tree) noexcept{
+BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk<Data>&& tree) noexcept
+{
   std::swap(root, tree.root);
   std::swap(size, tree.size);
   return *this;
@@ -132,63 +143,69 @@ BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk<Data>&& tree) 
 
 // Operator ==
 template<typename Data>
-bool BinaryTreeLnk<Data>::operator==(const BinaryTreeLnk<Data>& tree) const noexcept{
-  if(size == tree.size){
+bool BinaryTreeLnk<Data>::operator==(const BinaryTreeLnk<Data>& tree) const noexcept
+{
+  if(size == tree.size)
     return (Root() == tree.Root());
-  }
-  else{
+  else
     return false;
-  }
+
 }
 
 // Operator !=
 template<typename Data>
-bool BinaryTreeLnk<Data>::operator!=(const BinaryTreeLnk<Data>& tree) const noexcept{
+bool BinaryTreeLnk<Data>::operator!=(const BinaryTreeLnk<Data>& tree) const noexcept
+{
   return !(Root() == tree.Root());
 }
 
 // Root
 template<typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::Root() const{
-  if(size > 0){
+typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::Root() const
+{
+  if(size > 0)
     return *root;
-  }else{
+  else
     throw std::length_error("L'albero e' vuoto!");
-  }
 }
 
 // Clear
 template<typename Data>
-void BinaryTreeLnk<Data>::Clear(){
-  if(size != 0){
+void BinaryTreeLnk<Data>::Clear()
+{
+  if(size != 0)
+  {
     delete root;
     root = nullptr;
-    size=0;
+    size = 0;
   }
 }
 
 // Funzione Insert
 template<typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::Insert(NodeLnk* radice){
+typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::Insert(NodeLnk* radice)
+{
     NodeLnk* tmp = new NodeLnk();
     tmp->element = radice->Element();
-    if(radice->HasLeftChild()){
+    if(radice->HasLeftChild())
       tmp -> left = Insert(radice -> left);
-    }
-    if(radice->HasRightChild()){
+
+    if(radice->HasRightChild())
       tmp -> right = Insert(radice -> right);
-    }
+
     return tmp;
 }
 
 // Funzione Insert (LinearContainer)
 template<typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::Insert(const LinearContainer<Data>& lcon, unsigned int i, NodeLnk* root){
-  if(i < lcon.Size()){
-    root = new NodeLnk(lcon[i]);
-    root->left = Insert(lcon,(i*2)+1,root->left);
-    root->right = Insert(lcon,(i*2)+2,root->right);
-   }
+typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::Insert(const LinearContainer<Data>& container, unsigned int index, NodeLnk* root)
+{
+  if(index < container.Size())
+  {
+    root = new NodeLnk(container[index]);
+    root->left = Insert(container,  (index * 2) + 1, root->left);
+    root->right = Insert(container, (index * 2) + 2, root->right);
+  }
   return root;
 }
 
