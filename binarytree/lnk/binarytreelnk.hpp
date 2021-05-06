@@ -119,9 +119,9 @@ public:
   void Clear() override;
 
   // Funzione Insert
-  NodeLnk* Insert(NodeLnk*);
+  NodeLnk* BuildTree(NodeLnk*);
   // Funzione Insert (LinearContainer)
-  NodeLnk* Insert(const LinearContainer<Data>&, unsigned int, NodeLnk*);
+  NodeLnk* BuildTree(const LinearContainer<Data>&, unsigned int, NodeLnk*);
 
 };
 

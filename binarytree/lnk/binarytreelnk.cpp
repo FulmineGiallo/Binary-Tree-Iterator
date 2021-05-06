@@ -90,7 +90,7 @@ template<typename Data>
 BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& container)
 {
   size = container.Size();
-  root = Insert(container,0,root);
+  root = BuildTree(container,0,root);
 }
 
 // Copy constructor
@@ -99,7 +99,7 @@ BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk& tree)
 {
   if(tree.size > 0)
   {
-    root = Insert(&tree.Root());
+    root = BuildTree(&tree.Root());
     size = tree.size;
   }
 
@@ -122,11 +122,12 @@ BinaryTreeLnk<Data>::~BinaryTreeLnk()
 
 // Copy assignment
 template<typename Data>
-BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data>& tree){
+BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data>& tree)
+{
   Clear();
   if(!tree.Empty())
   {
-    root = Insert(&tree.Root());
+    root = BuildTree(&tree.Root());
     size = tree.size;
   }
   return *this;
@@ -183,28 +184,28 @@ void BinaryTreeLnk<Data>::Clear()
 
 // Funzione Insert
 template<typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::Insert(NodeLnk* radice)
+typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::BuildTree(NodeLnk* radice)
 {
     NodeLnk* tmp = new NodeLnk();
     tmp->element = radice->Element();
     if(radice->HasLeftChild())
-      tmp -> left = Insert(radice -> left);
+      tmp -> left = BuildTree (radice -> left);
 
     if(radice->HasRightChild())
-      tmp -> right = Insert(radice -> right);
+      tmp -> right = BuildTree (radice -> right);
 
     return tmp;
 }
 
 // Funzione Insert (LinearContainer)
 template<typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::Insert(const LinearContainer<Data>& container, unsigned int index, NodeLnk* root)
+typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::BuildTree(const LinearContainer<Data>& container, unsigned int index, NodeLnk* root)
 {
   if(index < container.Size())
   {
     root = new NodeLnk(container[index]);
-    root->left = Insert(container,  (index * 2) + 1, root->left);
-    root->right = Insert(container, (index * 2) + 2, root->right);
+    root->left =  BuildTree (container,  (index * 2) + 1, root->left);
+    root->right = BuildTree (container, (index * 2) + 2, root->right);
   }
   return root;
 }

@@ -7,6 +7,7 @@ namespace lasd {
 template <typename Data>
 BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& tree)
 {
+
   vector.Resize(tree.size);
   for(unsigned int i = 0; i < tree.size; i++){
     vector[i] = new NodeVec();
@@ -15,6 +16,7 @@ BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& tree)
     vector[i] -> v = &vector;
   }
   size = tree.size;
+  
 }
 
 // Move constructor
@@ -160,6 +162,7 @@ void BinaryTreeVec<Data>::Clear()
   for(unsigned int i = 0; i < size; i++)
   {
     delete vector[i];
+    //mettere a nullptr anche i nodi??
   }
   vector.Clear();
   size = 0;
