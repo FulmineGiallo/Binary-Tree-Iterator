@@ -107,16 +107,14 @@ public:
 
   // Specific member functions (inherited from BinaryTree)
   // type Root() specifiers;
-  // Override BinaryTree member (throw std::length_error when empty)
-  NodeLnk& Root() const override;
+  NodeLnk& Root() const override;   // Override BinaryTree member (throw std::length_error when empty)
 
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
   // type Clear() specifiers;
-  // Override Container member
-  void Clear() override;
+  void Clear() override; // Override Container member
 
   // Funzione Insert
   NodeLnk* BuildTree(NodeLnk*);

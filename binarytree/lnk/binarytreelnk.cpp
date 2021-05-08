@@ -67,7 +67,8 @@ bool BinaryTreeLnk<Data>::NodeLnk::IsLeaf() const noexcept
 
 // LeftChild
 template<typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild() const{
+typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild() const
+{
    if(HasLeftChild())
      return *left;
    else
@@ -167,7 +168,7 @@ typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::Root() const
   if(size > 0)
     return *root;
   else
-    throw std::length_error("L'albero e' vuoto!");
+    throw std::length_error("L'albero non ha radice, perchè vuoto!");
 }
 
 // Clear
@@ -205,7 +206,7 @@ typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::BuildTree(const Line
   {
     root = new NodeLnk(container[index]);
     root->left =  BuildTree (container,  (index * 2) + 1, root->left);
-    root->right = BuildTree (container, (index * 2) + 2, root->right);
+    root->right = BuildTree (container,  (index * 2) + 2, root->right);
   }
   return root;
 }

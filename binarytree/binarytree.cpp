@@ -22,7 +22,7 @@ bool BinaryTree<Data>::Node::operator==(const Node& node) const noexcept{
     }
     if(val)
     {
-      if(HasRightChild() && node.HasLeftChild())
+      if(HasRightChild() && node.HasRightChild())
       {
         val = RightChild() == node.RightChild();
       }
@@ -50,6 +50,7 @@ bool BinaryTree<Data>::operator==(const BinaryTree<Data>& tree) const noexcept
 {
   if(!(this->Empty()) && !(tree.Empty()))
     return Root() == tree.Root();
+
   if((this->Empty()) && tree.Empty())
     return true;
   else
@@ -67,25 +68,27 @@ bool BinaryTree<Data>::operator!=(const BinaryTree<Data>& tree) const noexcept
 
 // MapPreOrder
 template<typename Data>
-void BinaryTree<Data>::MapPreOrder(const MapFunctor fun, void* v, Node& node){
+void BinaryTree<Data>::MapPreOrder(const MapFunctor fun, void* v, Node& node)
+{
   fun(node.Element(), v);
-  if (node.HasLeftChild()){
+  if (node.HasLeftChild())
     MapPreOrder(fun, v, node.LeftChild());
-  }
-  if (node.HasRightChild()){
+
+  if (node.HasRightChild())
     MapPreOrder(fun, v, node.RightChild());
-  }
+
 }
 
 // MapPostOrder
 template<typename Data>
-void BinaryTree<Data>::MapPostOrder(const MapFunctor fun, void* v, Node& node){
-  if (node.HasLeftChild()){
+void BinaryTree<Data>::MapPostOrder(const MapFunctor fun, void* v, Node& node)
+{
+  if (node.HasLeftChild())
     MapPostOrder(fun, v, node.LeftChild());
-  }
-  if (node.HasRightChild()){
+
+  if (node.HasRightChild())
     MapPostOrder(fun, v, node.RightChild());
-  }
+
   fun(node.Element(), v);
 }
 
@@ -200,7 +203,8 @@ void BinaryTree<Data>::FoldPreOrder(const FoldFunctor fun, const void* v, void* 
 // FoldPostOrder
 template<typename Data>
 void BinaryTree<Data>::FoldPostOrder(const FoldFunctor fun , const void* v, void* v2) const{
-  if(!(this->Empty())){
+  if(!(this->Empty()))
+  {
     FoldPostOrder(fun, v, v2, Root());
   }
 }
@@ -208,7 +212,8 @@ void BinaryTree<Data>::FoldPostOrder(const FoldFunctor fun , const void* v, void
 // MapInOrder
 template<typename Data>
 void BinaryTree<Data>::MapInOrder(const MapFunctor fun, void* v){
-  if(!(this->Empty())){
+  if(!(this->Empty()))
+  {
     MapInOrder(fun, v, Root());
   }
 }
@@ -353,15 +358,18 @@ BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++(){
 
 // Specific constructors
 template<typename Data>
-BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& post){
+BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& post)
+{
   node = &post.Root();
-  while(node->HasLeftChild() || node->HasRightChild()){
+  while(node->HasLeftChild() || node->HasRightChild())
+  {
     stack.Push(node);
-    if(node->HasLeftChild()){
+
+    if(node->HasLeftChild())
       node = &node->LeftChild();
-    }else{
+    else
       node = &node->RightChild();
-    }
+
   }
 }
 
@@ -618,7 +626,7 @@ BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(const BTBreadthItera
 template <typename Data>
 BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(BTBreadthIterator<Data>&& breadth) noexcept
 {
-  node = std::move(breadth.node);
+  node =  std::move(breadth.node);
   queue = std::move(breadth.queue);
   return *this;
 }

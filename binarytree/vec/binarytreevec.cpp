@@ -9,14 +9,15 @@ BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& tree)
 {
 
   vector.Resize(tree.size);
-  for(unsigned int i = 0; i < tree.size; i++){
+  for(unsigned int i = 0; i < tree.size; i++)
+  {
     vector[i] = new NodeVec();
     vector[i] -> element = tree.vector[i] -> element;
     vector[i] -> indexCurrNode = tree.vector[i] -> indexCurrNode;
     vector[i] -> v = &vector;
   }
   size = tree.size;
-  
+
 }
 
 // Move constructor
@@ -75,21 +76,20 @@ BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec<Data>&& tree) 
   return *this;
 }
 
-// Element
 template <typename Data>
 Data& BinaryTreeVec<Data>::NodeVec::Element() noexcept
 {
   return element;
 }
 
-// Element (const)
+
 template <typename Data>
 const Data& BinaryTreeVec<Data>::NodeVec::Element() const noexcept
 {
   return element;
 }
 
-// HasLeftChild
+
 template <typename Data>
 bool BinaryTreeVec<Data>::NodeVec::HasLeftChild() const noexcept
 {
@@ -100,7 +100,7 @@ bool BinaryTreeVec<Data>::NodeVec::HasLeftChild() const noexcept
 
 }
 
-// HasRightChild
+
 template <typename Data>
 bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept
 {
@@ -112,18 +112,18 @@ bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept
 
 }
 
-// IsLeaf
+/
 template <typename Data>
 bool BinaryTreeVec<Data>::NodeVec::IsLeaf() const noexcept
 {
-  if(!(HasLeftChild() || HasRightChild()))
+  if((!HasLeftChild() && !HasRightChild()))
     return true;
   else
     return false;
 
 }
 
-// LeftChild
+
 template <typename Data>
 typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild() const
 {
@@ -134,7 +134,7 @@ typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild()
 
 }
 
-// RightChild
+
 template <typename Data>
 typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild() const
 {
@@ -147,7 +147,8 @@ typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild(
 
 // Root
 template <typename Data>
-typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::Root() const{
+typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::Root() const
+{
    if(vector.Empty())
      throw std::length_error("BinaryTreeVec vuoto!");
    else
@@ -162,7 +163,6 @@ void BinaryTreeVec<Data>::Clear()
   for(unsigned int i = 0; i < size; i++)
   {
     delete vector[i];
-    //mettere a nullptr anche i nodi??
   }
   vector.Clear();
   size = 0;
@@ -172,21 +172,21 @@ void BinaryTreeVec<Data>::Clear()
 template <typename Data>
 bool BinaryTreeVec<Data>::operator==(const BinaryTreeVec& tree) const noexcept
 {
-  bool val = true;
+  bool x = true;
   if(vector.Size() == tree.vector.Size())
   {
     for(unsigned int i = 0; i < vector.Size(); i++)
     {
-      if(val && tree.vector[i]->Element() != vector[i]->Element())
-        val = false;
+      if(x && tree.vector[i]->Element() != vector[i]->Element())
+        x = false;
       else
-        val = true;
+        x = true;
     }
   }
   else
-    val = false;
+    x = false;
 
-  return val;
+  return x;
 }
 
 // Opertator !=
