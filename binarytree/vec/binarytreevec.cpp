@@ -112,7 +112,7 @@ bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept
 
 }
 
-/
+
 template <typename Data>
 bool BinaryTreeVec<Data>::NodeVec::IsLeaf() const noexcept
 {
