@@ -52,9 +52,6 @@ namespace lasd
   void MenuVec(int type, int dim)
   {
     int scelta;
-    BinaryTreeVec<int> treeint;
-    BinaryTreeVec<float> treefloat;
-    BinaryTreeVec<string> treestring;
 
     lasd::Vector<int> vecint(dim);
     lasd::Vector<float> vecfloat(dim);
@@ -69,24 +66,20 @@ namespace lasd
     // BTPreOrderIterator<string> preorder_string;
 
     if(type == 1)
-    {
       riempi(vecint, dim);
-      treeint = BinaryTreeVec<int>(vecint);
-      node_int = &treeint.Root();
-    }
-    if(type == 2)
-    {
-      riempi(vecfloat, dim);
-      treefloat = BinaryTreeVec<float>(vecfloat);
-      node_float = &treefloat.Root();
-    }
-    if(type == 3)
-    {
-      riempiString(vecstring, dim);
-      treestring = BinaryTreeVec<string>(vecstring);
-      node_string = &treestring.Root();
-    }
 
+    if(type == 2)
+      riempi(vecfloat, dim);
+
+    if(type == 3)
+      riempiString(vecstring, dim);
+
+    BinaryTreeVec<int> treeint(vecint);
+    BinaryTreeVec<float> treefloat(vecfloat);
+    BinaryTreeVec<string> treestring(vecstring);
+    node_int = &treeint.Root();
+    node_float = &treefloat.Root();
+    node_string = &treestring.Root();
 
     while(scelta != 0)
     {
@@ -114,119 +107,249 @@ namespace lasd
       cin >> scelta;
       if(scelta == 1)
       {
-        int options = 0;
+        int options = -1;
         int elementoModificato = 0;
 
-        cout << "Opzioni:" << endl;
-        cout << "1: Vai verso Figlio SX se esiste" << endl;
-        cout << "2: Vai verso Figlio DX se esiste" << endl;
-        cout << "3: Visualizza l'elemento di questo nodo."<< endl;
-        cout << "4: Modifica l'elemento di questo nodo." << endl;
-        cin >> options;
-
-        if(type == 1)
+        while(options != 0)
         {
-          if(options == 1)
-          {
-            if(!treeint.Empty())
-              if(node_int->HasLeftChild())
-                node_int = &node_int->LeftChild();
+          cout << "Opzioni:" << endl;
+          cout << "1: Vai verso Figlio SX se esiste" << endl;
+          cout << "2: Vai verso Figlio DX se esiste" << endl;
+          cout << "3: Visualizza l'elemento di questo nodo."<< endl;
+          cout << "4: Modifica l'elemento di questo nodo." << endl;
+          cout << "0: Per tornare al Menu Precedente" << endl;
+          cin >> options;
 
-          }
-          if(options == 2)
+          if(type == 1)
           {
-            if(!treeint.Empty())
-              if(node_int->HasRightChild())
+            if(options == 1)
+            {
+              if(!treeint.Empty())
+                  node_int = &node_int->LeftChild();
+              if(!node_int->HasLeftChild())
+                cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
+            }
+            if(options == 2)
+            {
+              if(!treeint.Empty())
                 node_int = &node_int->RightChild();
+              if(!node_int->HasRightChild())
+                cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
+            }
+            if(options == 3)
+              cout << "Elemento del nodo corrente: " << node_int->Element() << endl;
+            if(options  == 4)
+            {
+              cout << "Inserisci un elemento che vuoi inserire nel nodo corrente" << endl;
+              cin  >> elementoModificato;
+              node_int->Element() = elementoModificato;
+              cout << "Elemento inserito" << endl;
+            }
           }
-          if(options == 3)
-            cout << "Elemento del nodo corrente: " << node_int->Element() << endl;
-          if(options  == 4)
+          if(type == 2)
           {
-            cout << "Inserisci un elemento che vuoi inserire nel nodo corrente" << endl;
-            cin  >> elementoModificato;
-            node_int->Element() = elementoModificato;
-            cout << "Elemento inserito" << endl;
+            if(options == 1)
+            {
+              if(!treefloat.Empty())
+                  node_float = &node_float->LeftChild();
+              if(!node_float->HasLeftChild())
+                cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
+            }
+            if(options == 2)
+            {
+              if(!treefloat.Empty())
+                  node_float = &node_float->RightChild();
+              if(!node_float->HasRightChild())
+                cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
+            }
+            if(options == 3)
+              cout << "Elemento del nodo corrente: " << node_float->Element() << endl;
+            if(options  == 4)
+            {
+              cout << "Inserisci un elemento che vuoi inserire nel nodo corrente" << endl;
+              cin  >> elementoModificato;
+              node_float->Element() = elementoModificato;
+              cout << "Elemento inserito" << endl;
+            }
+          }
+          if(type == 3)
+          {
+            if(options == 1)
+            {
+              if(!treestring.Empty())
+                  node_string = &node_string->LeftChild();
+              if(!node_string->HasLeftChild())
+                cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
+            }
+            if(options == 2)
+            {
+              if(!treestring.Empty())
+                  node_string = &node_string->RightChild();
+              if(!node_string->HasRightChild())
+                cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
+            }
+            if(options == 3)
+              cout << "Elemento del nodo corrente: " << node_string->Element() << endl;
+            if(options  == 4)
+            {
+              cout << "Inserisci un elemento che vuoi inserire nel nodo corrente" << endl;
+              cin  >> elementoModificato;
+              node_string->Element() = elementoModificato;
+              cout << "Elemento inserito" << endl;
+            }
           }
         }
-        if(type == 2)
-        {
-          if(options == 1)
-          {
-            if(!treefloat.Empty())
-              if(node_float->HasLeftChild())
-                node_float = &node_float->LeftChild();
-
-          }
-          if(options == 2)
-          {
-            if(!treefloat.Empty())
-              if(node_float->HasRightChild())
-                node_float = &node_float->RightChild();
-          }
-          if(options == 3)
-            cout << "Elemento del nodo corrente: " << node_float->Element() << endl;
-          if(options  == 4)
-          {
-            cout << "Inserisci un elemento che vuoi inserire nel nodo corrente" << endl;
-            cin  >> elementoModificato;
-            node_float->Element() = elementoModificato;
-            cout << "Elemento inserito" << endl;
-          }
-        }
-        if(type == 3)
-        {
-          if(options == 1)
-          {
-            if(!treestring.Empty())
-              if(node_string->HasLeftChild())
-                node_string = &node_string->LeftChild();
-
-          }
-          if(options == 2)
-          {
-            if(!treestring.Empty())
-              if(node_string->HasRightChild())
-                node_string = &node_string->RightChild();
-          }
-          if(options == 3)
-            cout << "Elemento del nodo corrente: " << node_string->Element() << endl;
-          if(options  == 4)
-          {
-            cout << "Inserisci un elemento che vuoi inserire nel nodo corrente" << endl;
-            cin  >> elementoModificato;
-            node_string->Element() = elementoModificato;
-            cout << "Elemento inserito" << endl;
-          }
-        }
-
-
       }
       if(scelta == 2)
       {
-        int iterator = 0;
+        int choose = 0;
         cout << "1. Ampiezza" << endl;
         cout << "2. Pre-Ordine" << endl;
         cout << "3. Ordine" << endl;
         cout << "4. Post-Ordine" << endl;
-        cin  >> iterator;
-
-        if(iterator == 1)
+        cin  >> choose;
+        if(choose == 1)
         {
           if(type == 1)
           {
-
+            cout << "Albero  In Ampiezza =  ";
+            treeint.MapBreadth([](int & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
           }
           if(type == 2)
           {
-
+            cout << "Albero  In Ampiezza =  ";
+            treefloat.MapBreadth([](float & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
           }
           if(type == 3)
           {
-
+              cout << "Albero In Ampiezza =  ";
+            treestring.MapBreadth([](string & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
           }
         }
+        if(choose == 2)
+        {
+          if(type == 1)
+          {
+            cout << "Albero  In Ampiezza =  ";
+            treeint.MapPreOrder([](int & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+          if(type == 2)
+          {
+              cout << "Albero  In Ampiezza =  ";
+            treefloat.MapPreOrder([](float & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+          if(type == 3)
+          {
+              cout << "Albero  In Ampiezza =  ";
+            treestring.MapPreOrder([](string & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+        }
+        if(choose == 3)
+        {
+          if(type == 1)
+          {
+              cout << "Albero  In Ampiezza =  ";
+            treeint.MapInOrder([](int & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+          if(type == 2)
+          {
+            cout << "Albero  In Ampiezza =  ";
+            treefloat.MapInOrder([](float & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+          if(type == 3)
+          {
+            cout << "Albero  In Ampiezza =  ";
+            treestring.MapInOrder([](string & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+        }
+        if(choose == 4)
+        {
+          if(type == 1)
+          {
+            cout << "Albero  In Ampiezza =  ";
+            treeint.MapPostOrder([](int & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+          if(type == 2)
+          {
+            cout << "Albero  In Ampiezza =  ";
+            treefloat.MapPostOrder([](float & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+          if(type == 3)
+          {
+            cout << "Albero  In Ampiezza =  ";
+            treestring.MapPostOrder([](string & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+          }
+        }
+
       }
+      if(scelta == 3)
+      {
+        cout << "Che Elemento vuoi cercare nell'albero?" << endl;
+        if(type == 1)
+        {
+          int search = 0;
+          cin >> search;
+          if(treeint.Exists(search))
+            cout << "Elemento trovato" << endl;
+          else
+            cout << "Elemento non trovato" << endl;
+        }
+        if(type == 2)
+        {
+          float search = 0;
+          cin >> search;
+          if(treefloat.Exists(search))
+            cout << "Elemento trovato" << endl;
+          else
+            cout << "Elemento non trovato" << endl;
+        }
+        if(type == 3)
+        {
+          string search;
+          cin >> search;
+          if(treestring.Exists(search))
+            cout << "Elemento trovato" << endl;
+          else
+            cout << "Elemento non trovato" << endl;
+        }
+      }
+
     }
   }
   void MenuLnk(int type, int dim)
