@@ -61,7 +61,7 @@ bool BinaryTree<Data>::operator==(const BinaryTree<Data>& tree) const noexcept
 template<typename Data>
 bool BinaryTree<Data>::operator!=(const BinaryTree<Data>& tree) const noexcept
 {
-  return !(Root() == tree.Root());
+  return !(*this == tree);
 }
 
 //****************************************************************************** MAP E FOLD (Interne)
