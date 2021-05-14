@@ -231,15 +231,15 @@ namespace lasd
         cin  >> choose;
         if(choose == 1)
         {
-          cout << "Visualizza l'elemento corrente (operator *)" << endl;
-          cout << "Vai avanti con l'iterator (operator ++)" << endl;
+          cout << "1: Visualizza l'elemento corrente (operator *)" << endl;
+          cout << "2: Vai avanti con l'iterator (operator ++)" << endl;
           cin  >> chooseOperator;
           if(type == 1 && chooseOperator == 1)
           {
             if(!breadth_int.Terminated())
               cout << "Elemento corrente: " << *breadth_int << endl;
           }
-          if(type == 1 && chooseOperator == 1)
+          if(type == 1 && chooseOperator == 2)
           {
             if(!breadth_int.Terminated())
             {
@@ -249,20 +249,164 @@ namespace lasd
           }
           if(type == 2 && chooseOperator == 1)
           {
-            if(!breadth_int.Terminated())
-              cout << "Elemento corrente: " << *breadth_int << endl;
+            if(!breadth_float.Terminated())
+              cout << "Elemento corrente: " << *breadth_float << endl;
           }
           if(type == 2 && chooseOperator == 2)
           {
-
+            if(!breadth_float.Terminated())
+            {
+              ++breadth_float;
+              cout << "Operator ++ applicato" << endl;
+            }
           }
           if(type == 3 && chooseOperator == 1)
           {
-
+            if(!breadth_string.Terminated())
+              cout << "Elemento corrente: " << *breadth_string << endl;
           }
           if(type == 3 && chooseOperator == 2)
           {
-
+            if(!breadth_string.Terminated())
+            {
+              ++breadth_string;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+        }
+        if(choose == 2)
+        {
+          cout << "1: Visualizza l'elemento corrente (operator *)" << endl;
+          cout << "2: Vai avanti con l'iterator (operator ++)" << endl;
+          cin  >> chooseOperator;
+          if(type == 1 && chooseOperator == 1)
+          {
+            if(!preorder_int.Terminated())
+              cout << "Elemento corrente: " << *preorder_int << endl;
+          }
+          if(type == 1 && chooseOperator == 2)
+          {
+            if(!preorder_int.Terminated())
+            {
+              ++preorder_int;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+          if(type == 2 && chooseOperator == 1)
+          {
+            if(!preorder_float.Terminated())
+              cout << "Elemento corrente: " << *preorder_float << endl;
+          }
+          if(type == 2 && chooseOperator == 2)
+          {
+            if(!preorder_float.Terminated())
+            {
+              ++preorder_float;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+          if(type == 3 && chooseOperator == 1)
+          {
+            if(!preorder_string.Terminated())
+              cout << "Elemento corrente: " << *preorder_string << endl;
+          }
+          if(type == 3 && chooseOperator == 2)
+          {
+            if(!preorder_string.Terminated())
+            {
+              ++preorder_string;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+        }
+        if(choose == 3)
+        {
+          cout << "1: Visualizza l'elemento corrente (operator *)" << endl;
+          cout << "2: Vai avanti con l'iterator (operator ++)" << endl;
+          cin  >> chooseOperator;
+          if(type == 1 && chooseOperator == 1)
+          {
+            if(!inorder_int.Terminated())
+              cout << "Elemento corrente: " << *inorder_int << endl;
+          }
+          if(type == 1 && chooseOperator == 2)
+          {
+            if(!inorder_int.Terminated())
+            {
+              ++inorder_int;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+          if(type == 2 && chooseOperator == 1)
+          {
+            if(!inorder_float.Terminated())
+              cout << "Elemento corrente: " << *inorder_float << endl;
+          }
+          if(type == 2 && chooseOperator == 2)
+          {
+            if(!inorder_float.Terminated())
+            {
+              ++inorder_float;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+          if(type == 3 && chooseOperator == 1)
+          {
+            if(!inorder_string.Terminated())
+              cout << "Elemento corrente: " << *inorder_string << endl;
+          }
+          if(type == 3 && chooseOperator == 2)
+          {
+            if(!inorder_string.Terminated())
+            {
+              ++inorder_string;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+        }
+        if(choose == 4)
+        {
+          cout << "1: Visualizza l'elemento corrente (operator *)" << endl;
+          cout << "2: Vai avanti con l'iterator (operator ++)" << endl;
+          cin  >> chooseOperator;
+          if(type == 1 && chooseOperator == 1)
+          {
+            if(!postorder_int.Terminated())
+              cout << "Elemento corrente: " << *postorder_int << endl;
+          }
+          if(type == 1 && chooseOperator == 2)
+          {
+            if(!postorder_int.Terminated())
+            {
+              ++postorder_int;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+          if(type == 2 && chooseOperator == 1)
+          {
+            if(!postorder_float.Terminated())
+              cout << "Elemento corrente: " << *postorder_float << endl;
+          }
+          if(type == 2 && chooseOperator == 2)
+          {
+            if(!postorder_float.Terminated())
+            {
+              ++postorder_float;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+          if(type == 3 && chooseOperator == 1)
+          {
+            if(!postorder_string.Terminated())
+              cout << "Elemento corrente: " << *postorder_string << endl;
+          }
+          if(type == 3 && chooseOperator == 2)
+          {
+            if(!postorder_string.Terminated())
+            {
+              ++postorder_string;
+              cout << "Operator ++ applicato" << endl;
+            }
           }
         }
       }
