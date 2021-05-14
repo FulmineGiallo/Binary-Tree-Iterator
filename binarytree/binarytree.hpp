@@ -419,7 +419,7 @@ public:
   // Specific constructors
   // BTInOrderIterator(argument) specifiers;
   // An iterator over a given binary tree
-  BTInOrderIterator(BinaryTree<Data>&);
+  BTInOrderIterator(const BinaryTree<Data>&);
 
   /* ************************************************************************ */
 
@@ -495,7 +495,7 @@ public:
   // Specific constructors
   // BTBreadthIterator(argument) specifiers;
   // An iterator over a given binary tree
-  BTBreadthIterator(BinaryTree<Data>&);
+  BTBreadthIterator(const BinaryTree<Data>&);
 
   /* ************************************************************************ */
 

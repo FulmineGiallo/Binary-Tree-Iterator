@@ -61,7 +61,6 @@ namespace lasd
     typename BinaryTree<float>::Node* node_float;
     typename BinaryTree<string>::Node* node_string;
 
-
     if(type == 1)
       riempi(vecint, dim);
 
@@ -588,5 +587,4 @@ namespace lasd
     if(chooseTree == 2)
       MenuLnk(chooseType, n);
   }
-
 }

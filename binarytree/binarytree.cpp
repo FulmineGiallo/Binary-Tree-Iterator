@@ -481,7 +481,7 @@ BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++(){
 
 // Specific constructor
 template <typename Data>
-BTInOrderIterator<Data>::BTInOrderIterator(BinaryTree<Data>& iterator)
+BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& iterator)
 {
   node = &iterator.Root();
   while(node->HasLeftChild())
@@ -592,7 +592,7 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
 
 // Specific constructor
 template <typename Data>
-BTBreadthIterator<Data>::BTBreadthIterator(BinaryTree<Data>& tree)
+BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& tree)
 {
   node = &tree.Root();
 }
