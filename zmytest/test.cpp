@@ -61,9 +61,6 @@ namespace lasd
     typename BinaryTree<float>::Node* node_float;
     typename BinaryTree<string>::Node* node_string;
 
-    // BTPreOrderIterator<int> preorder_int;
-    // BTPreOrderIterator<float> preorder_float;
-    // BTPreOrderIterator<string> preorder_string;
 
     if(type == 1)
       riempi(vecint, dim);
@@ -77,6 +74,23 @@ namespace lasd
     BinaryTreeVec<int> treeint(vecint);
     BinaryTreeVec<float> treefloat(vecfloat);
     BinaryTreeVec<string> treestring(vecstring);
+
+    BTPostOrderIterator<int> postorder_int(treeint);
+    BTPostOrderIterator<float> postorder_float(treefloat);
+    BTPostOrderIterator<string> postorder_string(treestring);
+
+    BTInOrderIterator<int> inorder_int(treeint);
+    BTInOrderIterator<float> inorder_float(treefloat);
+    BTInOrderIterator<string> inorder_string(treestring);
+
+    BTBreadthIterator<int> breadth_int(treeint);
+    BTBreadthIterator<float> breadth_float(treefloat);
+    BTBreadthIterator<string> breadth_string(treestring);
+
+    BTPreOrderIterator<int> preorder_int(treeint);
+    BTPreOrderIterator<float> preorder_float(treefloat);
+    BTPreOrderIterator<string> preorder_string(treestring);
+
     node_int = &treeint.Root();
     node_float = &treefloat.Root();
     node_string = &treestring.Root();
@@ -85,9 +99,10 @@ namespace lasd
     {
       cout << "Benevenuto nel menu del BinaryTreeVec" << endl;
       cout << "Cosa vorresti testare?" << endl;
-      cout << "1. Vuoi navigare nell'albero?" << endl;
-      cout << "2. Visualizzazioni elementi {Ampiezza, Pre-ordine, ordine, post-ordine}" << endl;
-      cout << "3. Controllo di esistenza di un valore" << endl;
+      cout << "1. Navigazione Albero con i Nodi" << endl;
+      cout << "2. Navigazione Albero con gli Iteratori" << endl;
+      cout << "3. Visualizzazioni elementi {Ampiezza, Pre-ordine, ordine, post-ordine}" << endl;
+      cout << "4. Controllo di esistenza di un valore" << endl;
       if(type == 1) //INT
       {
         cout << "4. Prodotto per gli interi minori di n (Funzione Fold)" << endl;
@@ -119,22 +134,23 @@ namespace lasd
           cout << "4: Modifica l'elemento di questo nodo." << endl;
           cout << "0: Per tornare al Menu Precedente" << endl;
           cin >> options;
-
           if(type == 1)
           {
             if(options == 1)
             {
               if(!treeint.Empty())
-                  node_int = &node_int->LeftChild();
-              if(!node_int->HasLeftChild())
-                cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
+                  if(node_int->HasLeftChild())
+                    node_int = &node_int->LeftChild();
+                  else
+                    cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
             }
             if(options == 2)
             {
               if(!treeint.Empty())
-                node_int = &node_int->RightChild();
-              if(!node_int->HasRightChild())
-                cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
+                  if(node_int->HasRightChild())
+                    node_int = &node_int->RightChild();
+                  else
+                    cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
             }
             if(options == 3)
               cout << "Elemento del nodo corrente: " << node_int->Element() << endl;
@@ -150,17 +166,19 @@ namespace lasd
           {
             if(options == 1)
             {
-              if(!treefloat.Empty())
-                  node_float = &node_float->LeftChild();
-              if(!node_float->HasLeftChild())
-                cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
+              if(!treeint.Empty())
+                  if(node_float->HasLeftChild())
+                    node_float = &node_float->LeftChild();
+                  else
+                    cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
             }
             if(options == 2)
             {
-              if(!treefloat.Empty())
-                  node_float = &node_float->RightChild();
-              if(!node_float->HasRightChild())
-                cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
+              if(!treeint.Empty())
+                  if(node_float->HasRightChild())
+                    node_float = &node_float->RightChild();
+                  else
+                    cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
             }
             if(options == 3)
               cout << "Elemento del nodo corrente: " << node_float->Element() << endl;
@@ -176,17 +194,19 @@ namespace lasd
           {
             if(options == 1)
             {
-              if(!treestring.Empty())
-                  node_string = &node_string->LeftChild();
-              if(!node_string->HasLeftChild())
-                cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
+              if(!treeint.Empty())
+                  if(node_string->HasLeftChild())
+                    node_string = &node_string->LeftChild();
+                  else
+                    cout << "Non puoi andare a sinistra, non ha figlio sx questo nodo" << endl;
             }
             if(options == 2)
             {
-              if(!treestring.Empty())
-                  node_string = &node_string->RightChild();
-              if(!node_string->HasRightChild())
-                cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
+              if(!treeint.Empty())
+                  if(node_string->HasRightChild())
+                    node_string = &node_string->RightChild();
+                  else
+                    cout << "Non puoi andare a destra, non ha figlio dx questo nodo" << endl;
             }
             if(options == 3)
               cout << "Elemento del nodo corrente: " << node_string->Element() << endl;
@@ -201,6 +221,52 @@ namespace lasd
         }
       }
       if(scelta == 2)
+      {
+        int choose = 0;
+        int chooseOperator = 0;
+        cout << "1. Ampiezza" << endl;
+        cout << "2. Pre-Ordine" << endl;
+        cout << "3. Ordine" << endl;
+        cout << "4. Post-Ordine" << endl;
+        cin  >> choose;
+        if(choose == 1)
+        {
+          cout << "Visualizza l'elemento corrente (operator *)" << endl;
+          cout << "Vai avanti con l'iterator (operator ++)" << endl;
+          cin  >> chooseOperator;
+          if(type == 1 && chooseOperator == 1)
+          {
+            if(!breadth_int.Terminated())
+              cout << "Elemento corrente: " << *breadth_int << endl;
+          }
+          if(type == 1 && chooseOperator == 1)
+          {
+            if(!breadth_int.Terminated())
+            {
+              ++breadth_int;
+              cout << "Operator ++ applicato" << endl;
+            }
+          }
+          if(type == 2 && chooseOperator == 1)
+          {
+            if(!breadth_int.Terminated())
+              cout << "Elemento corrente: " << *breadth_int << endl;
+          }
+          if(type == 2 && chooseOperator == 2)
+          {
+
+          }
+          if(type == 3 && chooseOperator == 1)
+          {
+
+          }
+          if(type == 3 && chooseOperator == 2)
+          {
+
+          }
+        }
+      }
+      if(scelta == 3)
       {
         int choose = 0;
         cout << "1. Ampiezza" << endl;
@@ -239,7 +305,7 @@ namespace lasd
         {
           if(type == 1)
           {
-            cout << "Albero  In Ampiezza =  ";
+            cout << "Albero  In Pre-Ordine =  ";
             treeint.MapPreOrder([](int & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -247,7 +313,7 @@ namespace lasd
           }
           if(type == 2)
           {
-              cout << "Albero  In Ampiezza =  ";
+              cout << "Albero  In Pre-Ordine =  ";
             treefloat.MapPreOrder([](float & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -255,7 +321,7 @@ namespace lasd
           }
           if(type == 3)
           {
-              cout << "Albero  In Ampiezza =  ";
+              cout << "Albero  In Pre-Ordine =  ";
             treestring.MapPreOrder([](string & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -266,7 +332,7 @@ namespace lasd
         {
           if(type == 1)
           {
-              cout << "Albero  In Ampiezza =  ";
+              cout << "Albero  InOrder =  ";
             treeint.MapInOrder([](int & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -274,7 +340,7 @@ namespace lasd
           }
           if(type == 2)
           {
-            cout << "Albero  In Ampiezza =  ";
+            cout << "Albero  InOrder =  ";
             treefloat.MapInOrder([](float & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -282,7 +348,7 @@ namespace lasd
           }
           if(type == 3)
           {
-            cout << "Albero  In Ampiezza =  ";
+            cout << "Albero  InOrder =  ";
             treestring.MapInOrder([](string & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -293,7 +359,7 @@ namespace lasd
         {
           if(type == 1)
           {
-            cout << "Albero  In Ampiezza =  ";
+            cout << "Albero  In PostOrder =  ";
             treeint.MapPostOrder([](int & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -301,7 +367,7 @@ namespace lasd
           }
           if(type == 2)
           {
-            cout << "Albero  In Ampiezza =  ";
+            cout << "Albero  In PostOrder =  ";
             treefloat.MapPostOrder([](float & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -309,7 +375,7 @@ namespace lasd
           }
           if(type == 3)
           {
-            cout << "Albero  In Ampiezza =  ";
+            cout << "Albero  In PostOrder =  ";
             treestring.MapPostOrder([](string & dat, void * ) {
               cout << dat << "  ";
             }, nullptr);
@@ -318,7 +384,7 @@ namespace lasd
         }
 
       }
-      if(scelta == 3)
+      if(scelta == 4)
       {
         cout << "Che Elemento vuoi cercare nell'albero?" << endl;
         if(type == 1)
