@@ -52,7 +52,7 @@ namespace lasd
   void MenuVec(int type, int dim)
   {
     int scelta;
-
+    int operator;
     lasd::Vector<int> vecint(dim);
     lasd::Vector<float> vecfloat(dim);
     lasd::Vector<string> vecstring(dim);
@@ -98,27 +98,111 @@ namespace lasd
     {
       cout << "Benevenuto nel menu del BinaryTreeVec" << endl;
       cout << "Cosa vorresti testare?" << endl;
+      cout << "0. Per uscire dal programma" << endl;
       cout << "1. Navigazione Albero con i Nodi" << endl;
       cout << "2. Navigazione Albero con gli Iteratori" << endl;
       cout << "3. Visualizzazioni elementi {Ampiezza, Pre-ordine, ordine, post-ordine}" << endl;
       cout << "4. Controllo di esistenza di un valore" << endl;
-      if(type == 1) //INT
-      {
-        cout << "4. Prodotto per gli interi minori di n (Funzione Fold)" << endl;
-        cout << "5. 3n per gli interi" << endl;
-      }
-      if(type == 2) //Float
-      {
-        cout << "4. Somma per i float maggiori di n (Funzione Fold)" << endl;
-        cout << "5. n^3 per i float " << endl;
-      }
-      if(type == 3) //String
-      {
-        cout << "4. Concatenazione per le stringhe con lunghezza minore o uguale a n (Funzione Fold)" << endl;
-        cout << "5. Concatenazione in testa di una specifica stringa str data " << endl;
-      }
-      cout << "0. Per uscire dal programma" << endl;
+      cout << "5. Funzioni Map & Fold" << endl;
       cin >> scelta;
+      if(scelta == 5 && type == 1) // INT
+      {
+          cout << "1. Prodotto per gli interi minori di n (Funzione Fold)" << endl;
+          cout << "2. 3n per gli interi (Funzione Map)" << endl;
+          cin  >> operator;
+          if(operator == 1)
+          {
+            int n2 = 0;
+            int prod = 1;
+            cout << "Inserisci un intero" << endl;
+            cin  >> n2;
+            treeint.FoldPreOrder([](const int & dat,
+                const void * n2, void * prod) {
+                if (dat < * ((int * ) n2)) {
+                  *((int * ) prod) *= dat;
+                }
+              }, & n2, & prod);
+              cout << "Il prodotto degli interi (minori di " << n2 << ") e' : " << prod << endl;
+          }
+          if(operator == 2)
+          {
+            treeint.MapPreOrder([](int & dat, void * ) {
+                dat = dat * 3;
+                cout << dat << "  ";
+              }, nullptr);
+              cout << endl;
+              cout <<"Funzione 3n applicata alla struttura" << endl;
+          }
+
+      }
+      if(scelta == 5 && type == 2) //Float
+      {
+        cout << "1. Somma per i float maggiori di n (Funzione Fold)" << endl;
+        cout << "2. n^3 per i float (Funzione Map)" << endl;
+        cin  >> operator;
+        if(operator == 1)
+        {
+          float n2 = 0;
+          float sum = 0;
+            cout << "Inserisci un n(float):" << endl;
+            cin  >> n2;
+            treefloat.FoldPreOrder([](const float & dat,
+                const void * n2, void * sum) {
+                if (dat > * ((float * ) n2)) {
+                  *((float * ) sum) += dat;
+                }
+              }, & n2, & sum);
+              cout << "La somma dei float (maggiori di " << n2 << ") e' : " << sum << endl;
+        }
+        if(operator == 2)
+        {
+          treefloat.MapPreOrder([](float & dat, void * ) {
+             dat = dat * dat * dat;
+             cout << dat << "  ";
+           }, nullptr);
+           cout << endl;
+           cout << "Funzione n^3 applicata alla struttura" << endl;
+        }
+
+
+      }
+      if(scelta == 5 && type == 3) //String
+      {
+
+        cout << "1. Concatenazione per le stringhe con lunghezza minore o uguale a n (Funzione Fold)" << endl;
+        cout << "2. Concatenazione in testa di una specifica stringa str data (Funzione Map)" << endl;
+        if(operator == 1)
+        {
+          string stringa = "";
+          int n2 = 0;
+          cout << "Inserisci la lunghezza" << endl;
+          cin >> n2;
+          treestring.FoldPreOrder([](const string & dat,
+             const void * n2, void * stringa) {
+             if (dat.size() <= * ((int * ) n2)) {
+               *((string * ) stringa) += dat;
+             }
+           }, & n2, & stringa);
+
+           cout << "Concatenazione delle stringhe (con lunghezza minore o uguale a " << n2 << ") e' : " << stringa << endl;
+        }
+        if(operator == 2)
+        {
+          string stringa;
+            cout << "Inserisci una stringa da concatenare:" << endl;
+            cin >> stringa;
+
+            cout << "La stringa "<< stringa <<" e' stata concatenata all'albero" << endl;
+            treestring.MapPreOrder([](string& dat, void* parola ){dat = *static_cast<string*>(parola)+dat;}, &stringa);
+            cout << "Il nuovo albero e' :";
+            treestring.MapBreadth([](string & dat, void * ) {
+              cout << dat << "  ";
+            }, nullptr);
+            cout << endl;
+        }
+      }
+
+
       if(scelta == 1)
       {
         int options = -1;
@@ -227,6 +311,7 @@ namespace lasd
         cout << "2. Pre-Ordine" << endl;
         cout << "3. Ordine" << endl;
         cout << "4. Post-Ordine" << endl;
+
         cin  >> choose;
         if(choose == 1)
         {
@@ -317,6 +402,7 @@ namespace lasd
               cout << "Operator ++ applicato" << endl;
             }
           }
+          cout << "Ritorno al MENU Principale, ritorna qui per continuare con gli iteratori" << endl;
         }
         if(choose == 3)
         {

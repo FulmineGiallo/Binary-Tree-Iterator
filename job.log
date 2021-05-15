@@ -1,0 +1,52 @@
+zmytest/test.cpp: In function 'void lasd::MenuVec(int, int)':
+zmytest/test.cpp:55:17: error: expected type-specifier before ';' token
+     int operator;
+                 ^
+zmytest/test.cpp:112:27: error: expected type-specifier before ';' token
+           cin  >> operator;
+                           ^
+zmytest/test.cpp:113:25: error: expected ')' before numeric constant
+           if(operator == 1)
+             ~           ^~
+                         )
+zmytest/test.cpp:113:27: error: cannot resolve overloaded function 'operator==' based on conversion to type 'bool'
+           if(operator == 1)
+                           ^
+zmytest/test.cpp:127:25: error: expected ')' before numeric constant
+           if(operator == 2)
+             ~           ^~
+                         )
+zmytest/test.cpp:127:27: error: cannot resolve overloaded function 'operator==' based on conversion to type 'bool'
+           if(operator == 2)
+                           ^
+zmytest/test.cpp:142:25: error: expected type-specifier before ';' token
+         cin  >> operator;
+                         ^
+zmytest/test.cpp:143:23: error: expected ')' before numeric constant
+         if(operator == 1)
+           ~           ^~
+                       )
+zmytest/test.cpp:143:25: error: cannot resolve overloaded function 'operator==' based on conversion to type 'bool'
+         if(operator == 1)
+                         ^
+zmytest/test.cpp:157:23: error: expected ')' before numeric constant
+         if(operator == 2)
+           ~           ^~
+                       )
+zmytest/test.cpp:157:25: error: cannot resolve overloaded function 'operator==' based on conversion to type 'bool'
+         if(operator == 2)
+                         ^
+zmytest/test.cpp:174:23: error: expected ')' before numeric constant
+         if(operator == 1)
+           ~           ^~
+                       )
+zmytest/test.cpp:174:25: error: cannot resolve overloaded function 'operator==' based on conversion to type 'bool'
+         if(operator == 1)
+                         ^
+zmytest/test.cpp:189:23: error: expected ')' before numeric constant
+         if(operator == 2)
+           ~           ^~
+                       )
+zmytest/test.cpp:189:25: error: cannot resolve overloaded function 'operator==' based on conversion to type 'bool'
+         if(operator == 2)
+                         ^
